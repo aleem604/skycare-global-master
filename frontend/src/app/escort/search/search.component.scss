@@ -1,0 +1,32 @@
+
+.search-accordion .mat-expansion-panel-header-title,
+.search-accordion .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.search-accordion .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.autocomplete { 
+    position: absolute;
+    top: 18px;
+    padding-left: 16px;
+    width: 100%; 
+}
+  
+
+.resultsContainer {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.resultsContainer .title {
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.resultsContainer .resultsGrid {}

@@ -1,0 +1,173 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">Search for Available Escorts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pageHolder" fullscreen>
+
+  <mat-accordion class="search-accordion">
+
+    <mat-expansion-panel hideToggle expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Search Info
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="searchForm">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Escort Certification(s)</ion-label>
+            <ion-select [(ngModel)]="search.escortCerts" formControlName="escortCertControl" placeholder="Select 1 or more" multiple="true">
+              <ion-select-option value="Paramedic">Paramedic</ion-select-option>
+              <ion-select-option value="Nurse">Nurse</ion-select-option>
+              <ion-select-option value="Physician">Physician</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Passport / Visa Country</ion-label>
+            <mat-form-field class="autocomplete">
+              <input type="text" matInput formControlName="passportCountryControl" [matAutocomplete]="passportCountry" [(ngModel)]="search.passportCountry">
+            </mat-form-field>              
+            <mat-autocomplete #passportCountry="matAutocomplete">
+              <mat-option *ngFor="let option of (passportCountries | async)" [value]="option">{{option}}</mat-option>
+            </mat-autocomplete>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Preferred Language 1</ion-label>
+            <mat-form-field class="autocomplete">
+              <input type="text" matInput formControlName="language1Control" [matAutocomplete]="language1" [(ngModel)]="search.language1">
+            </mat-form-field>              
+            <mat-autocomplete #language1="matAutocomplete">
+              <mat-option *ngFor="let option of (languages1 | async)" [value]="option">{{option}}</mat-option>
+            </mat-autocomplete>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Preferred Language 2</ion-label>
+            <mat-form-field class="autocomplete">
+              <input type="text" matInput formControlName="language2Control" [matAutocomplete]="language2" [(ngModel)]="search.language2">
+            </mat-form-field>              
+            <mat-autocomplete #language2="matAutocomplete">
+              <mat-option *ngFor="let option of (languages2 | async)" [value]="option">{{option}}</mat-option>
+            </mat-autocomplete>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Patient 3-letter Origin Airport Code (if known)</ion-label>
+            <ion-input formControlName="homeAirportCityControl" type="text" [(ngModel)]="search.homeAirportCity" maxlength="3" minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Travel Start Date</ion-label>
+            <mat-form-field class="date-chooser">
+              <input matInput 
+                            formControlName="startDateControl" 
+                            [matDatepicker]="startDatePicker"  
+                            [(ngModel)]="search.startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker">
+                  <mat-icon matDatepickerToggleIcon style="font-size: 35px; margin-left: -15px;">event</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker touchUi #startDatePicker></mat-datepicker>
+            </mat-form-field>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.startDate">
+              <div class="error-message" *ngIf="searchForm.get('startDateControl').hasError(validation.type) && (searchForm.get('startDateControl').dirty || searchForm.get('startDateControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Travel End Date</ion-label>
+            <mat-form-field class="date-chooser">
+              <input matInput 
+                            formControlName="endDateControl" 
+                            [matDatepicker]="endDatePicker"  
+                            [(ngModel)]="search.endDate">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker">
+                  <mat-icon matDatepickerToggleIcon style="font-size: 35px; margin-left: -15px;">event</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker touchUi #endDatePicker></mat-datepicker>
+            </mat-form-field>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.endDate">
+              <div class="error-message" *ngIf="searchForm.get('endDateControl').hasError(validation.type) && (searchForm.get('endDateControl').dirty || searchForm.get('endDateControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-button [disabled]="searchDisabled" color="primary" shape="round" (click)="executeSearch()">Search</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="resultsContainer">
+    <div class="title">Search Results</div>
+    <div class="resultsGrid">      
+      <ion-grid class="pageHolder">
+          <ion-row class="listHeader" nowrap>
+              <ion-col size-xs="4" 
+                       size-sm="4"
+                       size-md="3" 
+                       size-lg="3" 
+                       size-xl="3" class="listColumnHeader">Name</ion-col>
+              <ion-col size-xs="3" 
+                       size-sm="3"
+                       size-md="3" 
+                       size-lg="3" 
+                       size-xl="3" class="listColumnHeader">License</ion-col>
+              <ion-col size-xs="3" 
+                       size-sm="3"
+                       size-md="2" 
+                       size-lg="2" 
+                       size-xl="2" class="listColumnHeader">Distance to Pt(km)<span class="sorter">
+                        <span class="top" (click)="sortAscending($event, 'searchResultDistance')">&#9650;</span>
+                        <span class="bot" (click)="sortDescending($event, 'searchResultDistance')">&#9660;</span></span></ion-col>
+              <ion-col size-md="2"
+                       size-lg="2"
+                       size-xl="2" class="hidden-xs hidden-sm listColumnHeader">Phone</ion-col>
+              <ion-col size-xs="2" 
+                       size-sm="2"
+                       size-md="2" 
+                       size-lg="2" 
+                       size-xl="2" class="listColumnHeader">Email</ion-col>              
+          </ion-row>
+          <ion-row *ngIf="searchResults.length == 0">
+              <ion-col size="12">No Search Results</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let result of searchResults; let n=index" class="listRow" nowrap>          
+              <ion-col size-xs="4" 
+                       size-sm="4"
+                       size-md="3" 
+                       size-lg="3" 
+                       size-xl="3" class="listCell" (click)="viewEscort(result.escortID)">{{ result.name }}</ion-col>
+              <ion-col size-xs="3" 
+                       size-sm="3"
+                       size-md="3" 
+                       size-lg="3" 
+                       size-xl="3" class="listCell">{{ result.licenseType }}</ion-col>
+              <ion-col size-xs="3" 
+                       size-sm="3"
+                       size-md="2" 
+                       size-lg="2" 
+                       size-xl="2" class="listCell">{{ result.searchResultDistance }}</ion-col>
+              <ion-col size-md="2"
+                       size-lg="2"
+                       size-xl="2" class="hidden-xs hidden-sm listCell">{{ result.user.phoneNumber }}</ion-col>
+              <ion-col size-xs="2" 
+                       size-sm="2"
+                       size-md="2" 
+                       size-lg="2" 
+                       size-xl="2" class="listCell">{{ result.user.email }}</ion-col> 
+          </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+      
+</ion-content>
+

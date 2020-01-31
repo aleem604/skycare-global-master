@@ -1,0 +1,98 @@
+<section ion-content-print>
+
+    <div class="print-header">
+        <img src="assets/images/skycare_white-black.gif" class="header-logo">
+        <span class="header-title">In-flight Summary</span>
+    </div>
+      
+    <ion-list style="width: 100%">
+        <ion-item-divider><ion-label style="padding-bottom: 10px;" *ngIf="currentCase.patientProgress.patientBelongings">Patient Belongings</ion-label></ion-item-divider>
+        <ion-item *ngIf="currentCase.patientProgress.patientBelongings">
+            <ion-label class="fieldValue">{{ currentCase.patientProgress.patientBelongingsDesc }}</ion-label>
+          </ion-item>
+        <ion-item-divider><ion-label style="padding-bottom: 10px;">Vital Signs</ion-label></ion-item-divider>
+        <ion-grid class="pageHolder">
+            <ion-row class="listHeader" nowrap>
+                <ion-col size-xs="3" size-sm="2" class="listColumnHeader">Time</ion-col>
+                <ion-col size-sm="1" class="hidden-xs listColumnHeader">T</ion-col>
+                <ion-col size-xs="3" size-sm="2" class="listColumnHeader">BP</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listColumnHeader">HR</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listColumnHeader">RR</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listColumnHeader">SpO2</ion-col>
+                <ion-col size-sm="2" class="hidden-xs listColumnHeader">O2Flow</ion-col>
+                <ion-col size-sm="1" class="hidden-xs listColumnHeader">BS</ion-col>
+                <ion-col size-sm="1" class="hidden-xs listColumnHeader">Pain</ion-col>
+            </ion-row>
+            <ion-row *ngIf="currentCase.patientProgress.statusUpdates === undefined || currentCase.patientProgress.statusUpdates.length == 0">
+                <ion-col size="12">No vital sign checks</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let vitals of currentCase.patientProgress.statusUpdates" class="listRow" nowrap>          
+                <ion-col size-xs="3" size-sm="2" class="listCell">{{ vitals.date | date:'shortTime' }}</ion-col>
+                <ion-col             size-sm="1" class="hidden-xs listCell">{{ vitals.temperature }}</ion-col>
+                <ion-col size-xs="3" size-sm="2" class="listCell">{{ vitals.bloodPressure }}</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listCell">{{ vitals.heartRate }}</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listCell">{{ vitals.respiratoryRate }}</ion-col>
+                <ion-col size-xs="2" size-sm="1" class="listCell">{{ vitals.oxygenSaturation }}</ion-col>
+                <ion-col             size-sm="2" class="hidden-xs listCell">{{ vitals.oxygenFlowRate }}</ion-col>
+                <ion-col             size-sm="1" class="hidden-xs listCell">{{ vitals.bloodSugar }}</ion-col>
+                <ion-col             size-sm="1" class="hidden-xs listCell">{{ vitals.painMeasurement }}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-item-divider><ion-label>Medications</ion-label></ion-item-divider>
+        <ion-grid class="pageHolder">
+            <ion-row class="listHeader" nowrap>
+                <ion-col size-xs="3" size-sm="2" class="listColumnHeader">Time</ion-col>
+                <ion-col size-xs="4" size-sm="3" class="listColumnHeader">Med</ion-col>
+                <ion-col size-xs="2" size-sm="2" class="listColumnHeader">Dose</ion-col>
+                <ion-col size-xs="3" size-sm="2" class="listColumnHeader">Route</ion-col>
+                <ion-col             size-sm="3" class="hidden-xs listColumnHeader">Resp</ion-col>
+            </ion-row>
+            <ion-row *ngIf="currentCase.patientProgress.medications === undefined || currentCase.patientProgress.medications.length == 0">
+                <ion-col size="12">No medications administered</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let medication of currentCase.patientProgress.medications" class="listRow">          
+                <ion-col size-xs="3" size-sm="2" class="listCell">{{ medication.date | date:'shortTime' }}</ion-col>
+                <ion-col size-xs="4" size-sm="3" class="listCell">{{ medication.description }}</ion-col>
+                <ion-col size-xs="2" size-sm="2" class="listCell">{{ medication.dose }}</ion-col>
+                <ion-col size-xs="3" size-sm="2" class="listCell">{{ medication.route }}</ion-col>
+                <ion-col             size-sm="3" class="hidden-xs listCell">{{ medication.patientResponse }}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-item-divider><ion-label>Notes</ion-label></ion-item-divider>
+        <ion-grid class="pageHolder">
+            <ion-row class="listHeader" nowrap>
+                <ion-col size-xs="3" size-sm="2" class="listColumnHeader">Time</ion-col>
+                <ion-col size-xs="9" size-sm="10" class="listColumnHeader">Text</ion-col>
+            </ion-row>
+            <ion-row *ngIf="currentCase.patientProgress.notes === undefined || currentCase.patientProgress.notes.length == 0">
+                <ion-col size="12">No notes recorded</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let note of currentCase.patientProgress.notes" class="listRow">          
+                <ion-col size-xs="3" size-sm="2" class="listCell">{{ note.date | date:'shortTime' }}</ion-col>
+                <ion-col size-xs="9" size-sm="10" class="listCellExpanded">{{ note.text }}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-item-divider><ion-label>Medical Provider Signature</ion-label></ion-item-divider>
+        <div class="title">Signature of medical provider accepting transfer of care and any reports, records, or films in our custody</div>
+        <ion-item>
+          <ion-label class="fieldName">Name</ion-label>
+          <ion-label class="fieldValue">{{ currentCase.patientProgress.medicalProviderName }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="fieldName">Date</ion-label>
+          <ion-label class="fieldValue">{{ currentCase.patientProgress.medicalProviderSignatureDate | date:'shortDate' }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <img [src]="currentCase.patientProgress.medicalProviderSignature" (load)="checkIfReadyToPrint('medicalProvider')">
+        </ion-item>
+        <ion-item-divider><ion-label>Primary Escort Signature</ion-label></ion-item-divider>
+        <ion-item>
+          <img [src]="currentCase.patientProgress.escort1Signature" (load)="checkIfReadyToPrint('escort1')">
+        </ion-item>
+        <ion-item-divider *ngIf="currentCase.patientProgress.escort2Signature"><ion-label>Secondary Escort Signature</ion-label></ion-item-divider>
+        <ion-item *ngIf="currentCase.patientProgress.escort2Signature">
+          <img [src]="currentCase.patientProgress.escort2Signature" (load)="checkIfReadyToPrint('escort2')">
+        </ion-item>
+    </ion-list>
+  
+</section>

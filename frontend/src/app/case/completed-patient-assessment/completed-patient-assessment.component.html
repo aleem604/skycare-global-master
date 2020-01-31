@@ -1,0 +1,561 @@
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeConsent()" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="print()" color="primary">
+      <ion-icon name="print"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+  <ion-list style="width: 100%">
+    <ion-item-divider>
+      <ion-label style="padding-bottom: 10px;">Airway</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.airwayUsingO2"></ion-checkbox>
+          </ion-col>
+          <ion-col size-xs="7" size-md="4">
+            <ion-label class="fieldName">Patient O2 LPM</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="left-align-bordered-input">{{ currentCase.patientAssessment.airwayPatientO2LPM }}</ion-label>
+          </ion-col>
+          <ion-col size-md="3" class="hidden-xs hidden-sm">&nbsp;</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.airwayUsingBVM"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-label class="fieldName">Using BVM</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.airwayUsingETT"></ion-checkbox>
+          </ion-col>
+          <ion-col size-xs="4" size-md="3">
+            <ion-label class="fieldName">Using ETT</ion-label>
+          </ion-col>
+          <ion-col size-xs="2">
+            <ion-label class="right-align-bordered-input">{{ currentCase.patientAssessment.airwayUsingETTSize }}</ion-label>
+          </ion-col>
+          <ion-col size-xs="2">
+            <ion-label style="text-align: center;">@</ion-label>
+          </ion-col>
+          <ion-col size-xs="2">
+            <ion-label class="left-align-bordered-input">{{ currentCase.patientAssessment.airwayUsingETTRate }}</ion-label>
+          </ion-col>
+          <ion-col size-md="1" class="hidden-xs hidden-sm">&nbsp;</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.airwayUsingOPANPA"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-label class="fieldName">Using OPA / NPA</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.airwayUsingTrach"></ion-checkbox>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldName">Trach</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label style="text-align: right;">Size</ion-label>
+          </ion-col>
+          <ion-col size-xs="4" size-md="3">
+            <ion-label class="left-align-bordered-input">{{ currentCase.patientAssessment.airwayUsingTrachSize }}</ion-label>
+          </ion-col>
+          <ion-col size-xs="2" size-md="3">&nbsp;</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.airwayNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Respiratory / Chest</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Breathing</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.respBreathing !== undefined) ? currentCase.patientAssessment.respBreathing.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.respTracheaMidline"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-label class="fieldName">Trachea Midline</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.respCough"></ion-checkbox>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldName">Cough</ion-label>
+          </ion-col>
+          <ion-col size="8">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respCoughProductive }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="7">
+            <ion-label class="fieldName">Chest Wall Expansion</ion-label>
+          </ion-col>
+          <ion-col size="5">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respChestWallExpansion }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4" style="padding-left:0px;padding-right:0px;">
+            <ion-label style="margin-right:0px;" class="fieldName">Breath Sound</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respBreathSounds }}</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align:right">
+            <ion-label style="margin-right:0px;">R</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align:left">
+            <ion-checkbox [checked]="currentCase.patientAssessment.respBreathDiminishedRight"></ion-checkbox>
+          </ion-col>
+          <ion-col size="1" style="text-align:right">
+            <ion-label style="margin-right:0px;">L</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align:left">
+            <ion-checkbox [checked]="currentCase.patientAssessment.respBreathDiminishedLeft"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Equipment Used</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="6">
+            <ion-label class="fieldName">Monitors</ion-label>
+          </ion-col>
+          <ion-col size="6">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respMonitors }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="6">
+            <ion-label class="fieldName">Suppl. O2 Device</ion-label>
+          </ion-col>
+          <ion-col size="6">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respSupplimentaryO2Device }}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2">
+            <ion-label class="fieldName" style="text-align: right;">LPM</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respEquipLPM }}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldName" style="text-align: right;">O2%</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.respEquipPercent }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Cardiac</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="2">
+            <ion-label class="fieldName">Rate</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacRate }}</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldName">Rhythm:</ion-label>
+          </ion-col>
+          <ion-col size="5">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacRhythm }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Heart Sounds</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.cardiacSounds }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Jugular Vein</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.cardiacJvd }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Equipment Used</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.cardiacEquipment !== undefined) ? currentCase.patientAssessment.cardiacEquipment.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size-xs="6" size-md="4">
+            <ion-label class="fieldName">Peripheral Edema</ion-label>
+          </ion-col>
+          <ion-col size-xs="4" size-md="6">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacPeripheralEdemaLocation }}</ion-label>
+          </ion-col>
+          <ion-col size-xs="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacPeripheralEdemaScore }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.cardiacExternalPacing"></ion-checkbox>
+          </ion-col>
+          <ion-col size-xs="6" size-sm="5" size-md="4">
+            <ion-label class="fieldName">External Pacing</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacExternalPacingMA }}</ion-label>
+          </ion-col>
+          <ion-col size-sm="1" class="hidden-xs" style="text-align:left;">
+            <ion-label class="fieldName">mA</ion-label>
+          </ion-col>
+          <ion-col size-xs="3" size-sm="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.cardiacExternalPacingRate }}</ion-label>
+          </ion-col>
+          <ion-col size-sm="1" class="hidden-xs" style="text-align:left;">
+            <ion-label class="fieldName">Rate</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">12 Lead ECG Findings</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.cardiacEcgFindings }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.cardiacNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Neuro</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Eyes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.neuroEyes }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Verbal</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.neuroVerbal }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Motor</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.neuroMotor }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">GCS Score:</ion-label>
+      <ion-label class="fieldValue" style="text-align: right">{{ currentCase.patientAssessment.neuroGcsScore }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Pupils</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.neuroPupilsPERRLA"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-label class="fieldName">PERRLA</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="fieldName">Size</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align: right;">
+            <ion-label class="fieldName">L</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.neuroSizeLeft }}</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align: right;">
+            <ion-label class="fieldName">R</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.neuroSizeRight }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="fieldName">Reaction</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align: right;">
+            <ion-label class="fieldName">L</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.neuroReactionLeft }}</ion-label>
+          </ion-col>
+          <ion-col size="1" style="text-align: right;">
+            <ion-label class="fieldName">R</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.neuroReactionRight }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.neuroNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Abdomen / GI</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Condition</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.abdomenCondition !== undefined) ? currentCase.patientAssessment.abdomenCondition.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Tenderness</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.abdomenTenderness !== undefined) ? currentCase.patientAssessment.abdomenTenderness.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Bowel Sounds</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.abdomenBowelSounds }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="fieldName">Feed Tube</ion-label>
+          </ion-col>
+          <ion-col size="5">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.abdomenFeedTube }}</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.abdomenFeedTubeSize }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Feed Tube State</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.abdomenFeedTubeState }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.abdomenNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Pelvis / GU</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-checkbox [checked]="currentCase.patientAssessment.pelvisStable" slot="start"></ion-checkbox>
+      <ion-label class="fieldName">Stable</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="1" class="checkbox-col">
+            <ion-checkbox [checked]="currentCase.patientAssessment.pelvisFoley"></ion-checkbox>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="fieldName">Foley</ion-label>
+          </ion-col>
+          <ion-col size="8">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.pelvisFoleySize }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Appearance of Urine</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.pelvisAppearanceOfUrine }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.pelvisNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Trauma</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-checkbox [checked]="currentCase.patientAssessment.neuroHeentTrauma"></ion-checkbox>
+      <ion-label class="fieldName">HEENT Signs of Trauma</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [checked]="currentCase.patientAssessment.respChestTrauma"></ion-checkbox>
+      <ion-label class="fieldName">Chest Signs of Trauma</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Back/Buttocks Trauma</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.backTrauma !== undefined) ? currentCase.patientAssessment.backTrauma.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Back / Buttocks Trauma Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.backNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Extremities</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Extremities Trauma</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.extremitiesTrauma !== undefined) ? currentCase.patientAssessment.extremitiesTrauma.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="fieldName">Pulses</ion-label>
+          </ion-col>
+          <ion-col size="2" style="text-align:right;">
+            <ion-label class="fieldName">RUE</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.extremitiesPulsesRUE }}</ion-label>
+          </ion-col>
+          <ion-col size="2" style="text-align:right;">
+            <ion-label class="fieldName">LUE</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.extremitiesPulsesLUE }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="flex-field-grid">
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="fieldName">Pulses</ion-label>
+          </ion-col>
+          <ion-col size="2" style="text-align:right;">
+            <ion-label class="fieldName">RLE</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.extremitiesPulsesRLE }}</ion-label>
+          </ion-col>
+          <ion-col size="2" style="text-align:right;">
+            <ion-label class="fieldName">LLE</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="fieldValue left-align-bordered-input">{{ currentCase.patientAssessment.extremitiesPulsesLLE }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Diagrams</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-img [src]="currentCase.patientAssessment.diagramAnnotations" style="height: 371px; width: 350px;"></ion-img>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Diagram Notes</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.diagramNotes }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Miscellaneous</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Speech</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.demeanorSpeech }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Behavior</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.demeanorBehavior }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Skin</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.demeanorSkin !== undefined) ? currentCase.patientAssessment.demeanorSkin.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Pain</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-checkbox [checked]="currentCase.patientAssessment.painDenies" slot="start"></ion-checkbox>
+      <ion-label class="fieldName">Denies?</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Pain Location</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.painLocation }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Sensation</ion-label>
+      <ion-label class="fieldValue">{{ ((currentCase.patientAssessment.painSensation !== undefined) ? currentCase.patientAssessment.painSensation.join(', ') : '') }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Pain Intensity</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientAssessment.painScale }}</ion-label>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Signature</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-img [src]="currentCase.patientAssessment.overallSignature"></ion-img>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

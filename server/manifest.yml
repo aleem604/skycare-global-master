@@ -1,0 +1,9 @@
+applications:
+- name: skycare-dev
+  disk_quota: 1G
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  buildpack: nodejs_buildpack
+  env:
+    MAIN_URL: https://skycare-dev.mybluemix.net

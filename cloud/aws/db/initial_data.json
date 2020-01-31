@@ -1,0 +1,101 @@
+{
+    "docs": [
+        {
+            "_id": "chris-admin",
+            "name": "Chris Williams",
+            "email": "chris.williams@puremoneysystems.com",
+            "password": "testtest",
+            "phoneNumber": "17276923653",
+            "role": "admin",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "chris-admin"
+        },
+        {
+            "_id": "dan-admin",
+            "name": "Dan Thompson",
+            "email": "medicusinvestmentgroup@gmail.com",
+            "password": "testtest",
+            "phoneNumber": "15185734201",
+            "role": "admin",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "dan-admin"
+        },
+        {
+            "_id": "mattia-admin",
+            "name": "Mattia Cherubin",
+            "email": "mattia.cherubin@skycareglobal.com",
+            "password": "testtest",
+            "phoneNumber": "15185734201",
+            "role": "admin",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "mattia-admin"
+        },
+        {
+            "_id": "steve-admin",
+            "name": "Steve Avise",
+            "email": "ops@skycareglobal.com",
+            "password": "testtest",
+            "phoneNumber": "17274229454",
+            "role": "admin",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "steve-admin"
+        },
+        {
+            "_id": "chris-escort",
+            "name": "Chris Williams (Escort)",
+            "email": "chris.williams@logiclabs.us",
+            "password": "testtest",
+            "phoneNumber": "17274229454",
+            "role": "escort",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "chris-escort"
+        },
+        {
+            "_id": "chris-escort-account",
+            "skycare": "Escort",
+            "escortID": "chris-escort-account",
+            "name": "Chris Williams (Escort)",
+            "userID": "chris-escort"
+        },
+        {
+            "_id": "chris-company",
+            "name": "Chris Williams (Company)",
+            "email": "logicChemist@gmail.com",
+            "password": "testtest",
+            "phoneNumber": "17274229454",
+            "role": "escort",
+            "key2FA": "empty",
+            "emailVerified": true,
+            "skycare": "User",
+            "userID": "chris-escort"
+        },
+        {
+            "_id": "aig-company",
+            "skycare": "Company",
+            "companyID": "aig-company",
+            "name": "AIG",
+            "emailForInvoices": "chris.williams@logiclabs.us",
+            "emailForUpdates1": "chris.williams@logiclabs.us",
+            "emailForUpdates2": "",
+            "emailForUpdates3": ""
+        },
+        {
+            "_id": "aig-chris",
+            "skycare": "CompanyUser",
+            "companyUserID": "aig-chris",
+            "companyID": "aig-company",
+            "userID": "chris-company",
+            "lastLogin": ""
+        }
+    ]
+}

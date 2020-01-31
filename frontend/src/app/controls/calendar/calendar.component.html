@@ -1,0 +1,32 @@
+<skycare-calendar-header
+  [(view)]="view"
+  [(viewDate)]="viewDate">
+</skycare-calendar-header>
+
+<div>
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    [events]="events"
+    (beforeViewRender)="beforeMonthViewRender($event)"
+    (dayClicked)="dateSelected($event.day)"
+    #currentMonthCalendarControl>
+  </mwl-calendar-month-view>
+</div>
+
+<div *ngIf="show2Months">
+  <br>
+  <skycare-calendar-header
+    [(view)]="view"
+    [(viewDate)]="viewDateNextMonth">
+  </skycare-calendar-header>
+
+  <div>
+    <mwl-calendar-month-view
+      [viewDate]="viewDateNextMonth"
+      [events]="events"
+      (beforeViewRender)="beforeMonthViewRender($event)"
+      (dayClicked)="dateSelected($event.day)"
+      #nextMonthCalendarControl>
+    </mwl-calendar-month-view>
+  </div>
+</div>

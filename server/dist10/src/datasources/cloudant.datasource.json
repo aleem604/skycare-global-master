@@ -1,0 +1,10 @@
+{
+    "name": "cloudant",
+    "connector": "cloudant",
+    "url": "http://localhost:8080",
+    "database": "skycare",
+    "account": "admin",
+    "username": "admin",
+    "password": "pass",
+    "modelIndex": "skycare"
+}

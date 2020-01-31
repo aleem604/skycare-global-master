@@ -1,0 +1,59 @@
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeConsent()" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="print()" color="primary">
+      <ion-icon name="print"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-item-divider><ion-label>Consent Info</ion-label></ion-item-divider>
+    <ion-item>
+      <ion-label class="fieldName">Patient Name</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientConsent.patientName }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Patient DOB</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientConsent.patientDOB | date:'shortDate' }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Signer Name</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientConsent.signersName }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="fieldName">Signer Relationship</ion-label>
+      <ion-label class="fieldValue">{{ currentCase.patientConsent.signersRelationshipToPatient }}</ion-label>
+    </ion-item>
+    <ion-item-divider><ion-label>Legal Terms</ion-label></ion-item-divider>
+    <ion-item>
+      <div class="legalTerms">
+        <span class="boldAssertion">PATIENT CONSENT FOR MEDICAL TRANSPORT BY SKYCARE GLOBAL</span>
+        <span class="individualTerm">FROM : {{ currentCase.patientConsent.fromLocation }}</span>
+        <span class="individualTerm">TO : {{ currentCase.patientConsent.toLocation }}</span>
+        <span class="normalText">
+          I am aware of the inherent risks of commercial air medical transport
+          that include but are not limited to, deterioration of present status that may result in disability and/or death.  The 
+          physiological changes that may impact the patient have been thoroughly explained to me and I accept the risks.  Further,
+          permission is granted to transfer any and all appropriate patient information, charts, x-rays and laboratory/diagnostic 
+          results.
+        </span>
+        <span class="normalText">
+          The undersigned authorizes any holder of medical and/or billing information about him/her to be released to SkyCare
+          Global, LLC. and the hospital/facilities providing care, insurance companies, workman's compensation, appropriate
+          government agencies or responsible payee for billing purposes.  It is understood that the patient is responsible for any
+          and all costs not covered by the patient's insurance
+        </span>
+      </div>
+    </ion-item>
+    <ion-item-divider><ion-label>Signature</ion-label></ion-item-divider>
+    <ion-item>
+      <ion-img [src]="currentCase.patientConsent.signature"></ion-img>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+  
+  

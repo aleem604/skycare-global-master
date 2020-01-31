@@ -1,0 +1,21 @@
+.viewerContainer{}
+
+
+.buttonBar{
+    width:100%;
+}
+.buttonBar .downloadButton{
+    left: 0px;
+}
+.buttonBar .closeButton{
+    right: 0px;
+    position: absolute;
+}
+
+.viewerContent{}
+
+
+.viewerFrameSource {
+    width: 100%;
+    height: calc(100% - 10px);
+}

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="pageTitle">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="loginPageHolder">
+    <form [formGroup]="loginUserForm" (ngSubmit)="login()" (keyup.enter)="login()">
+      <ion-item>
+        <ion-input formControlName="emailControl" type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.email">
+          <div class="error-message" *ngIf="loginUserForm.get('emailControl').hasError(validation.type) && (loginUserForm.get('emailControl').dirty || loginUserForm.get('emailControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-input formControlName="passwordControl" maxlength="32" type="password" [(ngModel)]="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.password">
+          <div class="error-message" *ngIf="loginUserForm.get('passwordControl').hasError(validation.type) && (loginUserForm.get('passwordControl').dirty || loginUserForm.get('passwordControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label>Remember Me</ion-label>
+        <ion-checkbox formControlName="rememberMeControl" [(ngModel)]="rememberMe" color="primary" slot="start"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-button [disabled]="buttonDisabled" color="primary" shape="round" (click)="login()">Login</ion-button>
+        <ion-button color="danger" shape="round" (click)="passwordReset()" style="position:absolute;right:0px;margin-right:15px;">Reset Password</ion-button>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

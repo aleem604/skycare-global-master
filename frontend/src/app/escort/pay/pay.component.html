@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">
+      Pay Escorts
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid class="pageHolder">
+      <ion-row class="listHeader" nowrap>
+          <ion-col size-xs="6" 
+                   size-sm="5" 
+                   size-md="3"
+                   size-lg="3"
+                   size-xl="3" class="listColumnHeader">Escort<span class="sorter">
+                    <span class="top" (click)="sortAscending($event, 'escortName')">&#9650;</span>
+                    <span class="bot" (click)="sortDescending($event, 'escortName')">&#9660;</span></span></ion-col>
+          <ion-col size-lg="2"
+                   size-xl="2" class="hidden-xs hidden-sm hidden-md listColumnHeader">Diagnosis</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listColumnHeader">Origin</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listColumnHeader">Dest</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listColumnHeader"># Days</ion-col>
+          <ion-col size-sm="2" 
+                   size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs listColumnHeader">Pay/day</ion-col>
+          <ion-col size-sm="2" 
+                   size-md="2"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs listColumnHeader">Expenses</ion-col>
+          <ion-col size-xs="4" 
+                   size-sm="2" 
+                   size-md="2"
+                   size-lg="1"
+                   size-xl="1" class="listColumnHeader">TOTAL PAY</ion-col>
+          <ion-col size-xs="2" 
+                   size-sm="1" 
+                   size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="listColumnHeader">Paid</ion-col>
+      </ion-row>
+      <ion-row *ngIf="unpaidEscorts.length == 0">
+          <ion-col size="12">No Escorts awaiting payment</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let escort of unpaidEscorts; let n=index" class="listRow" nowrap>          
+          <ion-col size-xs="6" 
+                   size-sm="5" 
+                   size-md="3"
+                   size-lg="3"
+                   size-xl="3" class="listCell">{{ escort.escortName }}</ion-col>
+          <ion-col size-lg="2"
+                   size-xl="2" class="hidden-xs hidden-sm hidden-md listCell">{{ escort.diagnosis }}</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listCell">{{ escort.originCity }}</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listCell">{{ escort.destinationCity }}</ion-col>
+          <ion-col size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs hidden-sm listCell">{{ escort.daysOfTravel }}</ion-col>
+          <ion-col size-sm="2" 
+                   size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs listCell">{{ escort.payPerDay | currency }}</ion-col>
+          <ion-col size-sm="2" 
+                   size-md="2"
+                   size-lg="1"
+                   size-xl="1" class="hidden-xs listCell">{{ escort.escortExpenses | currency }}</ion-col>
+          <ion-col size-xs="4" 
+                   size-sm="2" 
+                   size-md="2"
+                   size-lg="1"
+                   size-xl="1" class="listCell">{{ escort.totalPay | currency }}</ion-col>
+          <ion-col size-xs="2" 
+                   size-sm="1" 
+                   size-md="1"
+                   size-lg="1"
+                   size-xl="1" class="listCell">
+            <ion-toggle checked="{{ escort.escortPaid }}"  (ionChange)="toggleEscortPaid($event, escort.caseID, escort.escortID, n)"></ion-toggle>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+
+  
+  

@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title class="pageTitle">Login - Two-Factor Authentication</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list class="pageHolder">
+      <form [formGroup]="login2FAUserForm">
+        <ion-item>
+          <ion-label>4-digit PIN Code</ion-label>
+          <ion-input formControlName="pinCodeControl" maxlength="4" type="tel" [(ngModel)]="pinCode" placeholder="Please check your phone text messages"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validationMessages.pinCode">
+            <div class="error-message" *ngIf="login2FAUserForm.get('pinCodeControl').hasError(validation.type) && (login2FAUserForm.get('pinCodeControl').dirty || login2FAUserForm.get('pinCodeControl').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-button [disabled]="loginButtonDisabled" color="primary" shape="round" expand="block" (click)="finishLogin()">Finish Login</ion-button>
+          <ion-button [disabled]="resendPINButtondisabled" color="danger" shape="round" (click)="sendNewPINCode()" style="position:absolute;right:0px;margin-right:15px;">Send new PIN Code</ion-button>
+        </ion-item>
+      </form>
+    </ion-list>
+  </ion-content>

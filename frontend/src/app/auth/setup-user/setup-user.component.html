@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="pageTitle">Setup User Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--ion-content-->
+  <form [formGroup]="setupUserForm">
+    <ion-list class="pageHolder">
+      <ion-item>
+        <ion-label position="floating">Email Address</ion-label>
+        <ion-input formControlName="emailControl" type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.email">
+          <div class="error-message" *ngIf="setupUserForm.get('emailControl').hasError(validation.type) && (setupUserForm.get('emailControl').dirty || setupUserForm.get('emailControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="passwordControl" maxlength="32" type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.password">
+          <div class="error-message" *ngIf="setupUserForm.get('passwordControl').hasError(validation.type) && (setupUserForm.get('passwordControl').dirty || setupUserForm.get('passwordControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input formControlName="confirmPasswordControl" maxlength="32" type="password" [(ngModel)]="confirmPassword"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.confirmPassword">
+          <div class="error-message" *ngIf="setupUserForm.get('confirmPasswordControl').hasError(validation.type) && (setupUserForm.get('confirmPasswordControl').dirty || setupUserForm.get('confirmPasswordControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">Phone</ion-label>
+        <ion-input formControlName="phoneControl" type="tel" [(ngModel)]="phoneNumber" placeholder="000-000-0000"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.phone">
+          <div class="error-message" *ngIf="setupUserForm.get('phoneControl').hasError(validation.type) && (setupUserForm.get('phoneControl').dirty || setupUserForm.get('phoneControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-button [disabled]="buttonDisabled" color="primary" shape="round" expand="block" (click)="updateAccount()">Setup Account</ion-button>
+    </ion-list>
+  </form>
+<!--/ion-content-->
+

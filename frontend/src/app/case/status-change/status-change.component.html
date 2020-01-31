@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="close()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-item *ngFor="let status of statuses; let n=index" disabled="{{ status.disabled }}">
+      <ion-label>{{ status.message }}</ion-label>
+      <ion-checkbox slot="start"
+                    [checked]="status.completed"
+                    (click)="updateCurrentStatus($event, n)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

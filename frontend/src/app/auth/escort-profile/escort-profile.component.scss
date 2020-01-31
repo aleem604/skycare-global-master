@@ -1,0 +1,54 @@
+.escort-accordion .mat-expansion-panel-header-title,
+.escort-accordion .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.escort-accordion .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.valid { color: green; }
+.invalid { color: red; }
+
+
+
+.availability-calendar {
+  width: 100%;
+}
+
+.downloadLink {
+  width:100%;
+  margin-left:10px;
+  margin-right:10px;
+  text-align:center;
+}
+.downloadLink .text {
+  padding: 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  background-color: orangered;
+  color: black;
+}
+.downloadLink .text:hover {
+  padding: 10px;
+  border: 2px solid orangered;
+  border-radius: 10px;
+  background-color: orange;
+  color: black;
+  text-decoration: initial;
+}
+
+
+.autocomplete { 
+  position: absolute;
+  top: 18px;
+  padding-left: 16px;
+  width: 100%; 
+}
+
+
+.bankAddressGrid {
+  min-height: 225px;
+}

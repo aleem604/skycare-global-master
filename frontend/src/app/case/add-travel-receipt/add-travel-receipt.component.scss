@@ -1,0 +1,36 @@
+
+.flex-field-grid { width: 100%; }
+.flex-field-grid .checkbox-col { padding-left: 0px; }
+.wide-dropdown { min-width: 75%; text-align: right; }
+
+
+.right-align-bordered-input { 
+    text-align: right;
+    border: solid 1px black;
+    min-width: 100%;
+}
+
+.center-align-bordered-input { 
+    text-align: center;
+    border: solid 1px black;
+    min-width: 100%;
+}
+
+.left-align-bordered-input {
+    text-align: left;
+    border: solid 1px black;
+    min-width: 100%;
+}
+
+
+.rightButton {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+}
+
+.leftButton {
+    position: absolute;
+    left: 0px;
+    margin-left: 10px;
+}

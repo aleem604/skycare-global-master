@@ -1,0 +1,25 @@
+.blockHeader {
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+
+.text-fab {
+    width: 150px;
+    left: -100px;
+    position: relative;
+  }
+  .text-fab .button-native {
+    width: 150px !important;
+    border-radius: 10px !important;
+  }
+  .text-fab BUTTON:first-child {
+    width: 150px !important;
+    border-radius: 10px !important;
+  }

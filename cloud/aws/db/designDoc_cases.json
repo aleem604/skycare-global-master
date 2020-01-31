@@ -1,0 +1,11 @@
+{
+  "views": {
+    "active": {
+      "map": "function (doc) {\n    if (doc.skycare == 'CompanyCase' && doc.currentStatus != 'ARCHIVED') {\n        emit([doc.companyID, 'CASE', doc._id], doc);\n    }\n\n    if (doc.skycare == 'Company') {\n        emit([doc._id, 'COMPANY', ''], doc);\n    }\n\n    if (doc.skycare == 'Escort') {\n        emit([doc._id, 'ESCORT', ''], doc);\n    }\n\n    if (doc.skycare == 'CaseEscortReceipt') {\n        emit([doc._id, 'ESCORTRECEIPT', ''], doc);\n    }\n}"
+    },
+    "activelyTrackingEscorts": {
+      "map": "function (doc) {\n  if (doc.skycare == 'CompanyCase' && doc.currentStatus != 'ARCHIVED') {\n    if (doc.currentStatus == 'Escort in origin city' || \n        doc.currentStatus == 'Escort performed pre-flight assessment' || \n        doc.currentStatus == 'Escort picked up patient on way to airport' || \n        doc.currentStatus == 'Airport check-in complete and awaiting departure' || \n        doc.currentStatus == 'Boarded & departed origin city' ||\n        doc.currentStatus == 'Arrived & waiting in connection airport 1' ||\n        doc.currentStatus == 'Boarded & departed connection airport 1' ||\n        doc.currentStatus == 'Arrived & waiting in connection airport 2' ||\n        doc.currentStatus == 'Boarded & departed connection airport 2' ||\n        doc.currentStatus == 'Escort & patient arrived destination city' || \n        doc.currentStatus == 'Escort & patient with ground transport to final destination') {\n     emit(['CASE',doc._id], doc);\n    }\n  }\n  \n  if (doc.skycare == 'Escort') {\n    emit(['ESCORT',doc._id], doc);\n  }\n}"
+    }
+  },
+  "language": "javascript"
+}

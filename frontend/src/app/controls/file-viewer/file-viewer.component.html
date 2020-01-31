@@ -1,0 +1,17 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="primary" class="buttonBar">
+      <a [download]="documentName" [href]="downloadURL" (click)="downloadFile()">
+        <ion-button slot="start" class="downloadButton" fill="clear" size="small" type="button">
+          <ion-icon name="download"></ion-icon>
+        </ion-button>
+      </a>
+      <ion-button slot="end" class="closeButton" (click)="closeFile()" fill="clear" size="small" type="button">
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <iframe id="viewerFrame" [src]="frameSource" class="viewerFrameSource"></iframe>
+</ion-content>

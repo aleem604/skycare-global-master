@@ -1,0 +1,91 @@
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeConsent()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-slides [options]="slideOptions" #slidesController>
+    <ion-slide>
+      <form [formGroup]="consentInfoForm" class="consentInfoForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Consent Info</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Patient Name</ion-label>
+            <ion-input type="text" [(ngModel)]="co.patientName"  formControlName="patientNameControl"></ion-input>
+          </ion-item>
+          <div class="validation-errors"><ng-container *ngFor="let validation of validationMessages.patientName"><div class="error-message" *ngIf="formControlHasError(consentInfoForm, 'patientNameControl', validation)">{{ validation.message }}</div></ng-container></div>
+          <ion-item>
+            <ion-label position="stacked" class="requiredField">Patient DOB</ion-label>
+            <mat-form-field class="date-chooser">
+              <input matInput 
+                            formControlName="patientDOBControl" 
+                            [matDatepicker]="patientDOBPicker"  
+                            [(ngModel)]="co.patientDOB">
+              <mat-datepicker-toggle matSuffix [for]="patientDOBPicker">
+                  <mat-icon matDatepickerToggleIcon style="font-size: 35px; margin-left: -15px;">event</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker touchUi #patientDOBPicker></mat-datepicker>
+            </mat-form-field>
+          </ion-item>
+          <div class="validation-errors"><ng-container *ngFor="let validation of validationMessages.patientDOB"><div class="error-message" *ngIf="formControlHasError(consentInfoForm, 'patientDOBControl', validation)">{{ validation.message }}</div></ng-container></div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Signer Name</ion-label>
+            <ion-input type="text" [(ngModel)]="co.signersName"  formControlName="signerNameControl"></ion-input>
+          </ion-item>
+          <div class="validation-errors"><ng-container *ngFor="let validation of validationMessages.signerName"><div class="error-message" *ngIf="formControlHasError(consentInfoForm, 'signerNameControl', validation)">{{ validation.message }}</div></ng-container></div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Signer Relationship to Patient</ion-label>
+            <ion-input type="text" [(ngModel)]="co.signersRelationshipToPatient"  formControlName="signerRelationshipControl"></ion-input>
+          </ion-item>
+          <div class="validation-errors"><ng-container *ngFor="let validation of validationMessages.signerRelationship"><div class="error-message" *ngIf="formControlHasError(consentInfoForm, 'signerRelationshipControl', validation)">{{ validation.message }}</div></ng-container></div>
+          <ion-item>
+            <ion-button [disabled]="consentInfoForm.invalid" color="primary" class="rightButton"
+                        shape="round" (click)="next()">NEXT</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <div class="legalTerms">
+        <span class="boldAssertion">PATIENT CONSENT FOR MEDICAL TRANSPORT BY SKYCARE GLOBAL</span>
+        <span class="individualTerm">FROM : {{ co.fromLocation }}</span>
+        <span class="individualTerm">TO : {{ co.toLocation }}</span>
+        <span class="normalText">
+          I am aware of the inherent risks of commercial air medical transport
+          that include but are not limited to, deterioration of present status that may result in disability and/or death.  The 
+          physiological changes that may impact the patient have been thoroughly explained to me and I accept the risks.  Further,
+          permission is granted to transfer any and all appropriate patient information, charts, x-rays and laboratory/diagnostic 
+          results.
+        </span>
+        <span class="normalText">
+          The undersigned authorizes any holder of medical and/or billing information about him/her to be released to SkyCare
+          Global, LLC. and the hospital/facilities providing care, insurance companies, workman's compensation, appropriate
+          government agencies or responsible payee for billing purposes.  It is understood that the patient is responsible for any
+          and all costs not covered by the patient's insurance
+        </span>
+        <div class="navigationButtons">
+          <ion-button color="danger" class="leftButton"
+                      shape="round" (click)="prev()">BACK</ion-button>
+          <ion-button color="primary" class="rightButton"
+                      shape="round" (click)="next(true)">NEXT</ion-button>
+        </div>
+      </div>
+    </ion-slide>
+    <ion-slide style="flex-direction: column;">
+      <span class="title">Signature</span>
+      <div class="signaturePad"> 
+        <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+        <ion-button color="danger" class="clearSignatureButton" size="small" shape="round" (click)="resetSignature()">Clear Signature</ion-button>
+      </div>
+      <div class="navigationButtons">
+        <ion-button color="danger" class="leftButton"
+                    shape="round" (click)="prev()">BACK</ion-button>
+        <ion-button [disabled]="finishSignatureButtonDisabled" color="primary" class="rightButton"
+                    shape="round" (click)="finalizeConsent()">FINALIZE & SUBMIT</ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+

@@ -1,0 +1,39 @@
+version: '3'
+services:
+  db:
+    image: ibmcom/cloudant-developer:latest
+    ports:
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - logvolume01:/srv
+
+  web:
+    image: skycare/webapp:prod
+    depends_on: 
+      - db
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    networks:
+      - internal
+    volumes:
+    - logvolume01:/var/log
+    
+    environment:      
+      SENDGRID_API_KEY: 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
+      MAIN_URL: http://localhost:8100
+      CREATE_DB: "true"
+      USING_2FA: "false"
+      NEXMO_API_KEY: 09cfd735
+      NEXMO_API_SECRET: N3Pnp9Z986vJxeFH
+      PORT: 3000
+      HOST: 0.0.0.0
+      ENVIRONMENT: prod
+    
+volumes:
+  logvolume01: {}
+
+networks:
+  internal:

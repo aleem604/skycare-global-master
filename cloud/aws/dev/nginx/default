@@ -1,0 +1,107 @@
+
+
+## Version 2018/12/05 - Changelog: https://github.com/linuxserver/docker-letsencrypt/commits/master/root/defaults/default
+
+upstream webapp {
+        server 10.0.1.35:3000;
+}
+
+upstream webapp-ws {
+        server 10.0.1.35:3001;
+}
+
+upstream cloudant {
+        server 10.0.1.35:8080;
+}
+
+
+
+
+# listening on port 80, redirect all traffic to https
+server {
+	listen 80;
+	listen [::]:80;
+	server_name _;
+	return 301 https://$host$request_uri;
+}
+
+# main server block
+server {
+	listen 443 ssl default_server;
+	listen [::]:443 ssl default_server;
+
+	# root /config/www;
+	# index index.html;
+
+	server_name puremoneysystems.com dev.puremoneysystems.com skycare.dev.puremoneysystems.com;
+
+	include /config/nginx/ssl.conf;
+        
+	location / {
+                proxy_pass                  http://webapp;
+                proxy_set_header            Host $http_host;
+                proxy_set_header            X-Forwarded-For $remote_addr;
+                proxy_set_header            X-Forwarded-Proto http;
+                proxy_buffer_size           128k;
+                proxy_buffers               4 256k;
+                proxy_busy_buffers_size     256k;
+                proxy_send_timeout          300;
+                proxy_read_timeout          300;
+                send_timeout                300;
+	}
+}
+
+# websocket server block
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+
+	server_name skycare-ws.dev.puremoneysystems.com;
+
+	include /config/nginx/ssl.conf;
+
+	location / {
+                proxy_pass                  http://webapp-ws;
+                proxy_set_header            Host $http_host;
+                proxy_set_header            X-Forwarded-For $remote_addr;
+                proxy_set_header            X-Forwarded-Proto http;
+                proxy_buffer_size           128k;
+                proxy_buffers               4 256k;
+                proxy_busy_buffers_size     256k;
+                proxy_send_timeout          300;
+                proxy_read_timeout          300;
+                send_timeout                300;
+	}
+}
+
+# database server access
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	index dashboard.html;
+
+	server_name db.dev.puremoneysystems.com;
+
+	include /config/nginx/ssl.conf;
+
+	location / {
+                proxy_pass                  http://cloudant;
+                proxy_set_header            Host $http_host;
+                proxy_set_header            X-Forwarded-For $remote_addr;
+                proxy_set_header            X-Forwarded-Proto http;
+                proxy_buffer_size           128k;
+                proxy_buffers               4 256k;
+                proxy_busy_buffers_size     256k;
+                proxy_send_timeout          300;
+                proxy_read_timeout          300;
+                send_timeout                300;
+	}
+}
+
+
+
+
+
+# enable proxy cache for auth
+# proxy_cache_path cache/ keys_zone=auth_cache:10m;

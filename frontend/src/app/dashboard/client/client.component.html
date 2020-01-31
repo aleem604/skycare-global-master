@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="pageTitle">
+        Company Flightboard
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+  
+    <ion-grid class="pageHolder">
+        <ion-row class="listHeader" nowrap>
+            <ion-col size-lg="2" 
+                     size-xl="2" class="hidden-xs hidden-sm hidden-md listColumnHeader">Case No</ion-col>
+            <ion-col size-xl="1" class="hidden-xs hidden-sm hidden-md hidden-lg listColumnHeader">Patient<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'patientLastName')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'patientLastName')">&#9660;</span></span></ion-col>
+            <ion-col size-sm="3"
+                     size-md="3" 
+                     size-lg="3"
+                     size-xl="3" class="hidden-xs listColumnHeader">Diagnosis<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'diagnosis')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'diagnosis')">&#9660;</span></span></ion-col>
+            <ion-col size-md="2"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm listColumnHeader">Origin<span class="sorter">
+                       <span class="top" (click)="sortAscending($event, 'originCity')">&#9650;</span>
+                       <span class="bot" (click)="sortDescending($event, 'originCity')">&#9660;</span></span></ion-col>
+            <ion-col size-xs="4" 
+                     size-sm="3"
+                     size-md="2" 
+                     size-lg="1"
+                     size-xl="1" class="listColumnHeader">Dest<span class="sorter">
+                       <span class="top" (click)="sortAscending($event, 'destinationCity')">&#9650;</span>
+                       <span class="bot" (click)="sortDescending($event, 'destinationCity')">&#9660;</span></span></ion-col>
+            <ion-col size-xs="8" 
+                     size-sm="6"
+                     size-md="5" 
+                     size-lg="5"
+                     size-xl="4" class="listColumnHeader">Status<span class="sorter">
+                       <span class="top" (click)="sortAscending($event, 'currentStatus')">&#9650;</span>
+                       <span class="bot" (click)="sortDescending($event, 'currentStatus')">&#9660;</span></span></ion-col>
+        </ion-row>
+        <ion-row *ngIf="companyCases.length == 0">
+            <ion-col size="12">No Active Cases</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let companyCase of companyCases; let n=index" class="listRow" nowrap (click)="viewCase(companyCase.caseID)">          
+            <ion-col size-lg="2" 
+                     size-xl="2" class="hidden-xs hidden-sm hidden-md listCell">{{companyCase.caseNumber}}</ion-col>
+            <ion-col size-xl="1" class="hidden-xs hidden-sm hidden-md hidden-lg listCell">{{companyCase.patientFirstName | slice:0:1}}&nbsp;{{companyCase.patientLastName}}</ion-col>
+            <ion-col size-sm="3"
+                     size-md="3" 
+                     size-lg="3"
+                     size-xl="3" class="hidden-xs listCell">{{companyCase.diagnosis}}</ion-col>
+            <ion-col size-md="2"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm listCell">{{companyCase.originCity}}</ion-col>
+            <ion-col size-xs="4" 
+                     size-sm="3"
+                     size-md="2" 
+                     size-lg="1"
+                     size-xl="1" class="listCell">{{companyCase.destinationCity}}</ion-col>
+            <ion-col size-xs="8" 
+                     size-sm="6"
+                     size-md="5" 
+                     size-lg="5"
+                     size-xl="4" class="listCell">{{companyCase.currentStatus}}</ion-col>
+        </ion-row>
+    </ion-grid>
+  
+  
+  </ion-content>
+  
+  
+  
+  

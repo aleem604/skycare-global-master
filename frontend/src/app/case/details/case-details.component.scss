@@ -1,0 +1,17 @@
+.create-case-accordion .mat-expansion-panel-header-title,
+.create-case-accordion .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.create-case-accordion .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.valid { color: green; }
+.invalid { color: red; }
+
+
+.viewableFile { background-color: initial; cursor: pointer; }
+.viewableFile:hover { background-color: lightgrey; cursor: pointer; }

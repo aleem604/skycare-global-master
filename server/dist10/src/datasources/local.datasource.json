@@ -1,0 +1,10 @@
+{
+    "name": "local",
+    "connector": "mysql",
+    "url": "mysql://adminN:Theworldismine1!@127.0.0.1/skycare",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "user": "adminN",
+    "password": "Theworldismine1!",
+    "database": "skycare"
+}

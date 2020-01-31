@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">
+      Invite a New User
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="outer-content test-content" fullscreen>
+  <ion-list class="pageHolder">
+    <form [formGroup]="inviteUserForm">
+      <ion-item>
+        <ion-label class="requiredField">User Type</ion-label>
+        <ion-select [(ngModel)]="userType" placeholder="Select One" formControlName="userTypeControl" interface="popover">
+          <ion-select-option value="client">Client</ion-select-option>
+          <ion-select-option value="escort">Escort</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.userType">
+          <div class="error-message" *ngIf="inviteUserForm.get('userTypeControl').hasError(validation.type) && (inviteUserForm.get('userTypeControl').dirty || inviteUserForm.get('userTypeControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="userType == 'client'">
+        <ion-item>
+          <ion-label position="floating" class="requiredField">Company Name</ion-label>
+          <ion-input formControlName="companyNameControl" type="text" [(ngModel)]="companyName"></ion-input>
+        </ion-item>
+      </ng-container>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">User's Name</ion-label>
+        <ion-input formControlName="nameControl" type="text" [(ngModel)]="userName"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.name">
+          <div class="error-message" *ngIf="inviteUserForm.get('nameControl').hasError(validation.type) && (inviteUserForm.get('nameControl').dirty || inviteUserForm.get('nameControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">Email Address</ion-label>
+        <ion-input formControlName="emailControl" type="email" [(ngModel)]="userEmail"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.email">
+          <div class="error-message" *ngIf="inviteUserForm.get('emailControl').hasError(validation.type) && (inviteUserForm.get('emailControl').dirty || inviteUserForm.get('emailControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">Phone</ion-label>
+        <ion-input formControlName="phoneControl" type="tel" [(ngModel)]="phoneNumber" placeholder="000-000-0000"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.phone">
+          <div class="error-message" *ngIf="inviteUserForm.get('phoneControl').hasError(validation.type) && (inviteUserForm.get('phoneControl').dirty || inviteUserForm.get('phoneControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-button [disabled]="buttonDisabled" color="primary" shape="round" (click)="inviteUser()">Invite User</ion-button>
+    </form>
+
+
+  </ion-list>
+</ion-content>

@@ -1,0 +1,126 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="pageTitle">
+        Case Archives
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+    <!--
+        Date                  M L XL
+        Case #           XS S M L XL
+        Patient                 L XL
+        Diagnosis             M L XL
+        Origin           XS S M L XL
+        Dest                S M L XL
+        Escort              S M L XL
+        Company          XS S M L XL
+        Paid             XS S M L XL
+    -->
+  
+    <ion-grid class="pageHolder">
+        <ion-row class="listHeader" nowrap>
+            <ion-col size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm listColumnHeader">Date<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'firstDayOfTravel')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'firstDayOfTravel')">&#9660;</span></span></ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="listColumnHeader">Case #<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'caseNumber')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'caseNumber')">&#9660;</span></span></ion-col>
+            <ion-col size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm hidden-md listColumnHeader">Patient</ion-col>
+            <ion-col size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="hidden-xs hidden-sm listColumnHeader">Diagnosis</ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="listColumnHeader">Origin<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'originCity')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'originCity')">&#9660;</span></span></ion-col>
+            <ion-col size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs listColumnHeader">Dest<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'destinationCity')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'destinationCity')">&#9660;</span></span></ion-col>
+            <ion-col size-sm="2" 
+                     size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="hidden-xs listColumnHeader">Escort<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'companyName')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'companyName')">&#9660;</span></span></ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="listColumnHeader">Company<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'companyName')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'companyName')">&#9660;</span></span></ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="2"
+                     size-lg="1"
+                     size-xl="1" class="listColumnHeader">Paid<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'quotedPrice')">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'quotedPrice')">&#9660;</span></span></ion-col>
+        </ion-row>
+        <ion-row *ngIf="archivedCases.length == 0">
+            <ion-col size="12">No archived cases</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let archivedCase of archivedCases; let n=index" class="listRow" nowrap (click)="viewArchivedCase(archivedCase.caseID)"> 
+            <ion-col size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm listCell">{{ archivedCase.firstDayOfTravel | date:'shortDate' }}</ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="listCell">{{ archivedCase.caseNumber }}</ion-col>
+            <ion-col size-lg="1"
+                     size-xl="1" class="hidden-xs hidden-sm hidden-md listCell">{{ archivedCase.patientFirstName | slice:0:1 }} {{ archivedCase.patientLastName }}</ion-col>
+            <ion-col size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="hidden-xs hidden-sm listCell">{{ archivedCase.diagnosis }}</ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="listCell">{{ archivedCase.originCity }}</ion-col>
+            <ion-col size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="hidden-xs listCell">{{ archivedCase.destinationCity }}</ion-col>
+            <ion-col size-sm="2" 
+                     size-md="2"
+                     size-lg="2"
+                     size-xl="2" class="hidden-xs listCell">{{ archivedCase.escorts[0].name }}</ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="1"
+                     size-lg="1"
+                     size-xl="1" class="listCell">{{ archivedCase.companyName }}</ion-col>
+            <ion-col size-xs="3" 
+                     size-sm="2" 
+                     size-md="2"
+                     size-lg="1"
+                     size-xl="1" class="listCell">{{ archivedCase.quotedPrice }}</ion-col>
+        </ion-row>
+    </ion-grid>
+    
+  </ion-content>
+  
+  
+    
+    

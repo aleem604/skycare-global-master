@@ -1,0 +1,38 @@
+
+.legalTerms {
+    margin: 20px;
+    font-size: 0.9em;
+    text-align: justify;
+}
+.legalTerms .boldAssertion {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;
+    float: left;
+    clear: both;
+}
+.legalTerms .individualTerm {
+    float: left;
+    clear: both;
+    margin-left: 30px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.legalTerms .normalText {
+    float: left;
+    clear: both;
+    margin-top: 10px;
+}
+.legalTerms>.navigationButtons {
+    float: left;
+    clear: both;
+    height: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.fieldName {}
+.fieldName+.fieldValue {}

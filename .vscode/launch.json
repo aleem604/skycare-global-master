@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug OpenWhisk Actions",
+            "program": "${workspaceFolder}/cloud-functions/debug_runner.js" 
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/server/index.js" , 
+            "env": {
+                "DEBUG":"loopback:*", 
+                "MAIN_URL": "http://localhost:8100", 
+                "SENDGRID_API_KEY": "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", 
+                "CREATE_DB": "false",
+                "USING_2FA": "false",
+                "NEXMO_API_KEY": "09cfd735",
+                "NEXMO_API_SECRET": "N3Pnp9Z986vJxeFH",
+                "HOST": "localhost",
+                "ENVIRONMENT": "local"
+            }
+        }
+    ]
+}

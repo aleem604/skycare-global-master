@@ -1,0 +1,257 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">{{pageTitle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pageHolder" fullscreen>
+
+  <mat-accordion class="view-case-accordion">
+
+    <mat-expansion-panel hideToggle expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          General Info
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;<ion-label style="text-decoration: underline; white-space: nowrap;">{{ currentCase.currentStatus }}</ion-label>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ion-list class="pageHolder">
+        <ion-item>
+          <ion-label position="stacked">Patient Name</ion-label>
+          <div class="caseDetailsField">{{ currentCase.patientFirstName }}&nbsp;{{ currentCase.patientLastName }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Client Name</ion-label>
+          <div class="caseDetailsField">{{ currentCase.companyName }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Origin Airport</ion-label>
+          <div class="caseDetailsField">{{ currentCase.originCity }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Destination Airport</ion-label>
+          <div class="caseDetailsField">{{ currentCase.destinationCity }}</div>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Hospital Medical Notes
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let medicalNote of caseDocs.medicalNote">
+          <ion-label (click)="showUploadedFile(medicalNote.documentID, medicalNote.type)">{{medicalNote.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.medicalNote === undefined || caseDocs.medicalNote.length == 0">
+          <ion-label>No Medical Notes for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Passports
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let passport of caseDocs.passport">
+          <ion-label (click)="showUploadedFile(passport.documentID, passport.type)">{{passport.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.passport === undefined || caseDocs.passport.length == 0">
+          <ion-label>No Passports for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Airline Clearances
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let airlineClearance of caseDocs.airlineClearance">
+          <ion-label (click)="showUploadedFile(airlineClearance.documentID, airlineClearance.type)">{{airlineClearance.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.airlineClearance === undefined || caseDocs.airlineClearance.length == 0">
+          <ion-label>No Airline Clearances for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Air
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let air of caseDocs.air">
+          <ion-label (click)="showUploadedFile(air.documentID, air.type)">{{air.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.air === undefined || caseDocs.air.length == 0">
+          <ion-label>No Air Docs for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Hotel
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let hotel of caseDocs.hotel">
+          <ion-label (click)="showUploadedFile(hotel.documentID, hotel.type)">{{hotel.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.hotel === undefined || caseDocs.hotel.length == 0">
+          <ion-label>No Hotel Docs for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Ground
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let ground of caseDocs.ground">
+          <ion-label (click)="showUploadedFile(ground.documentID, ground.type)">{{ground.name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="caseDocs.ground === undefined || caseDocs.ground.length == 0">
+          <ion-label>No Ground Docs for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Patient Consent
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon *ngIf="currentCase.patientConsent === undefined" style="color: orange;">warning</mat-icon>
+          <mat-icon *ngIf="currentCase.patientConsent !== undefined" style="color: green;">check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ion-list>
+        <ion-item class="" *ngIf="currentCase.patientConsent === undefined"><ion-label>NOT COMPLETED</ion-label></ion-item>
+        <ion-item class="" *ngIf="currentCase.patientConsent !== undefined">
+          <ion-label (click)="showSignedConsent()" class="completeDocLink">VIEW SIGNED CONSENT</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Pre-flight Assessment
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon *ngIf="currentCase.patientAssessment === undefined" style="color: orange;">warning</mat-icon>
+          <mat-icon *ngIf="currentCase.patientAssessment !== undefined" style="color: green;">check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ion-list>
+        <ion-item class="" *ngIf="currentCase.patientAssessment === undefined"><ion-label>NOT COMPLETED</ion-label></ion-item>
+        <ion-item class="" *ngIf="currentCase.patientAssessment !== undefined">
+          <ion-label (click)="showSignedAssessment()" class="completeDocLink">VIEW SIGNED ASSESSMENT</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Progress Notes
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon *ngIf="currentCase.patientProgress === undefined" style="color: orange;">warning</mat-icon>
+          <mat-icon *ngIf="currentCase.patientProgress !== undefined" style="color: green;">check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ion-list>
+        <ion-item class="" *ngIf="currentCase.patientProgress === undefined"><ion-label>NOT COMPLETED</ion-label></ion-item>
+        <ion-item class="" *ngIf="currentCase.patientProgress !== undefined">
+          <ion-label (click)="showSignedProgressNotes()" class="completeDocLink">VIEW SIGNED PROGRESS NOTES</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Travel Receipts
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon *ngIf="currentCase.escortReceipts === undefined" style="color: orange;">warning</mat-icon>
+          <mat-icon *ngIf="currentCase.escortReceipts !== undefined" style="color: green;">check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item class="viewableFile" *ngFor="let receipt of currentCase.escortReceipts" style="border: solid 1px black;">
+          <ion-grid class="flex-field-grid">
+            <ion-row>
+              <ion-col size="12"><ion-label (click)="showUploadedFile(receipt.receiptID, 'receipt')" class="compactData">{{receipt.name}}</ion-label></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="11"><ion-label class="compactData">{{ getEscortName(receipt.escortID) }}</ion-label></ion-col>
+              <ion-col size="1"><ion-icon (click)="showUploadedFile(receipt.receiptID, 'receipt')" name="eye" class="icon-button"></ion-icon></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12"><ion-label class="compactData">{{ receipt.alternateName }}</ion-label></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" style="text-align: left; align-items: left;">$ {{receipt.usdAmount}}</ion-col>
+              <ion-col size="6" style="text-align: right; align-items: right;">{{receipt.receiptDate | date:'shortDate'}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle #messagesPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="blueButton">
+          Messages
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ion-list>
+        <ion-item *ngFor="let message of currentCase.messages" class="listRow">
+          <ion-label class="messageItem">{{ message.sendDate | date : 'M-dd-yy HH:mm' }} - {{ message.senderID }} - {{ message.message }}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="currentCase.messages === undefined || currentCase.messages.length == 0">
+          <ion-label>No messages for this Case</ion-label>
+        </ion-item>
+      </ion-list>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+
+</ion-content>

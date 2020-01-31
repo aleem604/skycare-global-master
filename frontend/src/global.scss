@@ -1,0 +1,368 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+// MATERIAL DESIGN THEMING
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+
+BODY { max-width: 1200px; }
+
+
+// ANGULAR FILE UPLOADER STYLES
+.afu-select-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 153px;
+    margin: 0 0 0 0;
+}
+.afu-reset-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 80px;
+    margin: 0 0 0 0;
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+.afu-upload-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+.afu-upload-status { display: none; }
+.afu-constraints-info { display: none; }
+.afu-valid-file { width: 100%; cursor: pointer; } 
+.afu-valid-file P { 
+    position: absolute;
+    left: 15px;
+    bottom: 0px;
+    width: 300px;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+.afu-valid-file P+P { 
+    display: none;
+    //position: absolute;
+    //left: 245px;
+    //bottom: 0px;
+    //width: 110px;
+    //padding: 0 0 0 0;
+    //margin: 0 0 0 0;
+    //text-align: right; 
+}
+.afu-valid-file P+P+A {
+    display: none;
+}
+
+
+//.afu-dragndrop-box {}
+//.afu-dragndrop-text {}
+//.afu-invalid-file {}
+//.afu-progress-bar {}
+//.afu-attach-pin {}
+// ANGULAR FILE UPLOADER STYLES
+
+
+
+// Hide things based on screen breakpoints
+.hidden-xs {
+    @media (min-width: 0px) and (max-width: 575px) { display: none !important; }
+}
+.hidden-sm {
+    @media (min-width: 576px) and (max-width: 767px) { display: none !important; }
+}
+.hidden-md {
+    @media (min-width: 768px) and (max-width: 991px) { display: none !important; }
+}
+.hidden-lg {
+    @media (min-width: 992px) and (max-width: 1199px) { display: none !important; }
+}
+.hidden-xl {
+    @media (min-width: 1200px) { display: none !important; }
+}
+
+
+
+
+
+.menuHolder {
+}
+.pageHolder {
+}
+
+
+.requiredField::after {
+    content: '*';
+    color: red;
+    margin-left:10px;
+}
+
+
+.validation-errors {
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    font-size: 1.2em;
+    color: red;
+    margin-bottom: 5px;
+}
+
+.intl-phone-control {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    top: 35px;
+}
+
+
+.divider-label {
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+
+.show-modal {
+    display: flex !important;
+}
+
+
+
+.offline {
+    text-align: center;
+    font-weight: bold;
+    width: 250px;
+    margin-left: calc((100vw - 250px) / 2);
+}
+
+
+.date-chooser { 
+    position: absolute;
+    top: 18px;
+    padding-left: 16px;
+    width: 100%; 
+  }
+
+
+
+
+// Sortable tables
+.listHeader {
+    border: #444444 1px solid;
+    background-color: darkgrey;
+ }
+.listHeader .listColumnHeader {
+    border: #444444 1px solid;
+    background-color: darkgrey;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    xtext-overflow: ellipsis;
+    word-wrap: none;
+}
+.listHeader .listColumnHeader .sorter {
+    display: inline-block;
+    position: absolute;
+    font-size: 12px;
+    vertical-align: middle;
+    right: 5px;
+    width: 100%;
+}
+.listHeader .listColumnHeader .sorter SPAN {
+    cursor: pointer;
+}
+.listHeader .listColumnHeader .sorter SPAN:hover {
+    cursor: pointer;
+    color: red;
+}
+.listHeader .listColumnHeader .sorter SPAN.top {
+    display: block;
+    position: relative;
+    left: 5px;
+    top: -10px;
+    width: 100%;
+    text-align: right;
+}
+.listHeader .listColumnHeader .sorter SPAN.bot {
+    display: block;
+    position: relative;
+    left: 5px;
+    top: -5px;
+    width: 100%;
+    text-align: right;
+}
+.listHeader .listColumnHeader .sorter.sortascending SPAN.top {
+    display: block;
+    position: relative;
+    left: 5px;
+    top: -10px;
+    width: 100%;
+    text-align: right;
+    color: red;
+}
+.listHeader .listColumnHeader .sorter.sortdescending SPAN.bot {
+    display: block;
+    position: relative;
+    left: 5px;
+    top: -5px;
+    width: 100%;
+    text-align: right;
+    color: red;
+}
+.listRow:nth-child(even) { 
+    border: #444444 1px solid;
+    background-color: lightgrey;
+}
+.listRow:nth-child(odd) { 
+    border: #444444 1px solid;
+    background-color: #F0F0F0;
+}
+.listRow:hover {
+    background-color: rgb(230, 174, 159);
+    cursor: pointer;
+ }
+ .listRow .listCell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: none;
+    vertical-align: middle;
+    text-align: center;
+ }
+ .listRow .listCellExpanded {
+    white-space: initial;
+    text-align: left;
+ }
+
+
+
+ .compactData {
+     margin-top: 0px !important;
+     margin-bottom: 0px !important;
+     padding-top: 0px;
+     padding-bottom: 0px;
+ } 
+
+ .icon-button {
+    position: absolute;
+    height:25px;
+    width:25px;
+ }
+
+
+
+ ION-ITEM-DIVIDER {
+     color: black;
+     font-weight: bold;
+     text-transform: uppercase;
+     font-size: 1.2em;
+ }
+
+
+
+ // Material Design Expansion Panel
+.mat-expansion-panel {
+    xbackground-color: #BBBBBB;
+    border-bottom: solid 1px #222222;
+}
+.mat-expansion-panel-header {
+    xbackground-color: #888888;
+}
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover,
+.mat-expansion-panel-header.mat-expanded:focus {
+    font-weight: bold;
+    xbackground-color: #888888;
+}
+.mat-expansion-panel-header-title {
+    align-items: center !important;
+    white-space: nowrap;
+}
+.mat-expansion-panel-header-description .mat-icon {
+    background-color: white;
+    width: 48px;
+    height: 48px;
+    margin: 0px;
+    padding: 12px;
+}
+
+
+.blueButton {
+    background-color: #3880ff;
+    color: white;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 22px;
+    max-height: 40px;
+    max-width: 250px;
+    text-transform: uppercase;
+    font-size: 18px;
+    flex-grow: unset !important;
+}
+
+.pageTitle {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+
+
+
+
+
+.print-header { 
+    width: 95%;
+}
+.print-header .header-logo { 
+    max-width: 50%;
+}
+.print-header .header-title {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 24px;
+    min-width: 50%;
+    padding-right: 5px;
+ }
+
+
+
+
+
+ @media screen and (max-height: 700px) {  
+    body, .app-root, .split-pane, .ion-page, ion-app, ion-nav { contain: none !important; }
+    body, ion-nav, ion-router-outlet, ion-app, .ion-page { overflow: initial !important; }
+    body{ position: static !important; }
+  
+    [ion-content-print]{ overflow-y: visible !important; position: relative !important; }
+}
+
+
+
+@media print{
+    ion-header{ display: none !important; }  
+  
+    body, .app-root, .split-pane, .ion-page, ion-app, ion-nav { contain: none !important; }
+    body, ion-nav, ion-router-outlet, ion-app, .ion-page { overflow: initial !important; }
+    body{ position: static !important; }
+  
+    [ion-content-print]{ overflow-y: visible !important; position: relative !important; }
+}

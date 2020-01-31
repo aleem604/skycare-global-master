@@ -1,0 +1,9 @@
+{
+    "name": "couchdb",
+    "connector": "couchdb2",
+    "url": "http://admin:password@127.0.0.1:5984/",
+    "database": "skycare",
+    "username": "admin",
+    "password": "password",
+    "modelIndex": ""
+}

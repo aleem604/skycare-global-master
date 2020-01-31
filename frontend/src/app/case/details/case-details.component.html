@@ -1,0 +1,454 @@
+<div id="veryTop"></div>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">{{pageTitle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div id="veryTop"></div>
+<ion-content class="pageHolder" fullscreen>
+  <mat-accordion class="create-case-accordion" #accordion>
+
+    <mat-expansion-panel (afterExpand)="scrollToTop('veryTop')" id="generalInfoAC" hideToggle expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          General Info
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;<mat-icon #generalIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="generalForm">
+        <ion-list class="pageHolder">
+          <ion-item>
+            <ion-label position="stacked" class="requiredField">Client</ion-label>
+            <ion-select [(ngModel)]="editedCase.companyID" formControlName="companyControl" placeholder="Select One" interface="popover">
+              <ion-select-option *ngFor="let company of companies" value="{{company.companyID}}">{{company.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.company">
+              <div class="error-message" *ngIf="generalForm.get('companyControl').hasError(validation.type) && (generalForm.get('companyControl').dirty || generalForm.get('companyControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Case Number</ion-label>
+            <ion-input formControlName="caseNumberControl" type="text" [(ngModel)]="editedCase.caseNumber"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.caseNumber">
+              <div class="error-message" *ngIf="generalForm.get('caseNumberControl').hasError(validation.type) && (generalForm.get('caseNumberControl').dirty || generalForm.get('caseNumberControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating">Patient First Name</ion-label>
+            <ion-input formControlName="patientFirstNameControl" type="text" [(ngModel)]="editedCase.patientFirstName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Patient Last Name</ion-label>
+            <ion-input formControlName="patientLastNameControl" type="text" [(ngModel)]="editedCase.patientLastName"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.patientLastName">
+              <div class="error-message" *ngIf="generalForm.get('patientLastNameControl').hasError(validation.type) && (generalForm.get('patientLastNameControl').dirty || generalForm.get('patientLastNameControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Diagnosis</ion-label>
+            <ion-input formControlName="diagnosisControl" type="text" [(ngModel)]="editedCase.diagnosis"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.diagnosis">
+              <div class="error-message" *ngIf="generalForm.get('diagnosisControl').hasError(validation.type) && (generalForm.get('diagnosisControl').dirty || generalForm.get('diagnosisControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Client Quote (USD)</ion-label>
+            <ion-input formControlName="quotedPriceControl" type="number" [(ngModel)]="editedCase.quotedPrice"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.clientQuote">
+              <div class="error-message" *ngIf="generalForm.get('quotedPriceControl').hasError(validation.type) && (generalForm.get('quotedPriceControl').dirty || generalForm.get('quotedPriceControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked" class="requiredField">Escort(s)</ion-label>
+            <ion-select [(ngModel)]="caseEscorts" value="caseEscorts" formControlName="escortsControl" placeholder="Select Escorts" multiple="true" #escortsControl>
+              <ion-select-option *ngFor="let escort of escorts" value="{{escort.escortID}}">{{escort.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.escorts">
+              <div class="error-message" *ngIf="generalForm.get('escortsControl').hasError(validation.type) && (generalForm.get('escortsControl').dirty || generalForm.get('escortsControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Escort pay / day (USD)</ion-label>
+            <ion-input formControlName="payPerDayControl" type="number" [(ngModel)]="editedCase.payPerDay"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.escortPayPerDay">
+              <div class="error-message" *ngIf="generalForm.get('payPerDayControl').hasError(validation.type) && (generalForm.get('payPerDayControl').dirty || generalForm.get('payPerDayControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (afterExpand)="scrollToTop('generalInfoAC')" id="travelDetailsAC" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Travel Details
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #travelDetailsIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="travelDetailsForm">
+        <ion-list class="pageHolder">
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Origin Airport</ion-label>
+            <ion-input formControlName="originCityControl" type="text" [(ngModel)]="editedCase.originCity"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.originCity">
+              <div class="error-message" *ngIf="travelDetailsForm.get('originCityControl').hasError(validation.type) && (travelDetailsForm.get('originCityControl').dirty || travelDetailsForm.get('originCityControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Destination Airport</ion-label>
+            <ion-input formControlName="destinationCityControl" type="text" [(ngModel)]="editedCase.destinationCity"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.destinationCity">
+              <div class="error-message" *ngIf="travelDetailsForm.get('destinationCityControl').hasError(validation.type) && (travelDetailsForm.get('destinationCityControl').dirty || travelDetailsForm.get('destinationCityControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked" class="requiredField">First day of Travel</ion-label>
+            <mat-form-field class="date-chooser">
+              <input matInput 
+                            formControlName="firstDayOfTravelControl" 
+                            [matDatepicker]="firstDayOfTravelPicker"  
+                            [(ngModel)]="firstDayOfTravelDateString">
+              <mat-datepicker-toggle matSuffix [for]="firstDayOfTravelPicker">
+                  <mat-icon matDatepickerToggleIcon style="font-size: 35px; margin-left: -15px;">event</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker touchUi #firstDayOfTravelPicker></mat-datepicker>
+            </mat-form-field>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.firstDayOfTravel">
+              <div class="error-message" *ngIf="travelDetailsForm.get('firstDayOfTravelControl').hasError(validation.type) && (travelDetailsForm.get('firstDayOfTravelControl').dirty || travelDetailsForm.get('firstDayOfTravelControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating" class="requiredField">Number of Travel Days</ion-label>
+            <ion-input formControlName="numberTravelDaysControl" type="number" [(ngModel)]="editedCase.numberTravelDays"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.numberOfTravelDays">
+              <div class="error-message" *ngIf="travelDetailsForm.get('numberTravelDaysControl').hasError(validation.type) && (travelDetailsForm.get('numberTravelDaysControl').dirty || travelDetailsForm.get('numberTravelDaysControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="floating">Flight Number 1</ion-label>
+            <ion-input formControlName="flightNumber1Control" type="text" [(ngModel)]="editedCase.flightNumber1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Connection City 1</ion-label>
+            <ion-input formControlName="connectionCity1Control" type="text" [(ngModel)]="editedCase.connectionCity1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Flight Number 2</ion-label>
+            <ion-input formControlName="flightNumber2Control" type="text" [(ngModel)]="editedCase.flightNumber2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Connection City 2</ion-label>
+            <ion-input formControlName="connectionCity2Control" type="text" [(ngModel)]="editedCase.connectionCity2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Flight Number 3</ion-label>
+            <ion-input formControlName="flightNumber3Control" type="text" [(ngModel)]="editedCase.flightNumber3"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (afterExpand)="scrollToTop('travelDetailsAC')" id="externalAccessAC" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          External Access
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #externalAccessIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="externalAccessForm">
+        <ion-list class="pageHolder">
+          <ion-item>
+            <ion-label position="floating">1st Email to Provide Case Access</ion-label>
+            <ion-input formControlName="externalAccessEmail1Control" type="email" [(ngModel)]="editedCase.externalAccessEmail1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">2nd Email to Provide Case Access</ion-label>
+            <ion-input formControlName="externalAccessEmail2Control" type="email" [(ngModel)]="editedCase.externalAccessEmail2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">3rd Email to Provide Case Access</ion-label>
+            <ion-input formControlName="externalAccessEmail3Control" type="email" [(ngModel)]="editedCase.externalAccessEmail3"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('externalAccessAC')" id="medicalNotesAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Medical Notes
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #medicalNotesIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="medicalNotesForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let medicalNote of caseDocs.medicalNote">
+            <ion-label (click)="showUploadedFile(medicalNote.documentID, medicalNote.type)">{{medicalNote.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(medicalNote.documentID, medicalNote.type)" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="medicalNote" 
+                                   type="case" 
+                                   [(ngModel)]="currentMedicalNoteDocument" 
+                                   formControlName="medicalNoteFileControl" #medicalNoteFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.medicalNote">
+              <div class="error-message" *ngIf="medicalNotesForm.get('medicalNoteFileControl').hasError(validation.type) && (medicalNotesForm.get('medicalNoteFileControl').dirty || medicalNotesForm.get('medicalNoteFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('medicalNotesAC')" id="passportsAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Passports
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #passportsIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="passportsForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let passport of caseDocs.passport">
+            <ion-label (click)="showUploadedFile(passport.documentID, passport.type)">{{passport.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(passport.documentID, passport.type)" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="passport" 
+                                   type="case" 
+                                   [(ngModel)]="currentPassportDocument" 
+                                   formControlName="passportFileControl" #passportFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.passport">
+              <div class="error-message" *ngIf="passportsForm.get('passportFileControl').hasError(validation.type) && (passportsForm.get('passportFileControl').dirty || passportsForm.get('passportFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('passportsAC')" id="airlineClearancesAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Airline Clearances
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #airlineClearancesIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="airlineClearancesForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let airlineClearance of caseDocs.airlineClearance">
+            <ion-label (click)="showUploadedFile(airlineClearance.documentID, airlineClearance.type)">{{airlineClearance.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(airlineClearance.documentID, airlineClearance.type)" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="airlineClearance" 
+                                   type="case" 
+                                   [(ngModel)]="currentAirlineClearanceDocument" 
+                                   formControlName="airlineClearanceFileControl" #airlineClearanceFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.airlineClearance">
+              <div class="error-message" *ngIf="airlineClearancesForm.get('airlineClearanceFileControl').hasError(validation.type) && (airlineClearancesForm.get('airlineClearanceFileControl').dirty || airlineClearancesForm.get('airlineClearanceFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('airlineClearancesAC')" id="airAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Air
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #airIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="airForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let air of caseDocs.air">
+            <ion-label (click)="showUploadedFile(air.documentID, air.type)">{{air.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(air.documentID, air.type)" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="air" 
+                                   type="case" 
+                                   [(ngModel)]="currentAirDocument" 
+                                   formControlName="airFileControl" #airFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.air">
+              <div class="error-message" *ngIf="airForm.get('airFileControl').hasError(validation.type) && (airForm.get('airFileControl').dirty || airForm.get('airFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('airAC')" id="hotelAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Hotel
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #hotelIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="hotelForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let hotel of caseDocs.hotel">
+            <ion-label (click)="showUploadedFile(hotel.documentID, hotel.type)">{{hotel.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(hotel.documentID, hotel.type)" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="hotel" 
+                                   type="case" 
+                                   [(ngModel)]="currentHotelDocument" 
+                                   formControlName="hotelFileControl" #hotelFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.hotel">
+              <div class="error-message" *ngIf="hotelForm.get('hotelFileControl').hasError(validation.type) && (hotelForm.get('hotelFileControl').dirty || hotelForm.get('hotelFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel hideToggle *ngIf="editedCase.caseID != ''" (afterExpand)="scrollToTop('hotelAC')" id="groundAC">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="margin-top: 12px;" class="blueButton">
+          Ground
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon #groundIcon>check_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="groundForm">
+        <ion-list>
+          <ion-item class="viewableFile" *ngFor="let ground of caseDocs.ground">
+            <ion-label (click)="showUploadedFile(ground.documentID, ground.type)">{{ground.name}}</ion-label>
+            <ion-icon (click)="deleteUploadedFile(ground.documentID, ground.type, 'groundFileControl')" name="trash"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <skycare-file-uploader filename="ground" 
+                                   type="case" 
+                                   [(ngModel)]="currentGroundDocument" 
+                                   formControlName="groundFileControl" #groundFileControl
+                                   (onFileUploadRequested)="prepareForFileUpload($event)" 
+                                   (onFileUploaded)="fileUploaded($event)"></skycare-file-uploader>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.ground">
+              <div class="error-message" *ngIf="groundForm.get('groundFileControl').hasError(validation.type) && (groundForm.get('groundFileControl').dirty || groundForm.get('groundFileControl').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </ion-list>
+      </form>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <ion-button [disabled]="saveButtonDisabled" color="primary" shape="round" expand="block" (click)="saveCase()">{{ saveButtonText }}</ion-button>
+</ion-content>

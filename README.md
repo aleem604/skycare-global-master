@@ -1,2 +1,3 @@
-# skycare-global-master
-skycare-global-master
+# skycare
+Operations Management app for SkyCare Global
+   

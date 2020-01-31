@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">Company Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pageHolder" fullscreen>
+  <form [formGroup]="companyProfileForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">Company Name</ion-label>
+        <ion-input formControlName="nameControl" type="text" maxlength="32" [(ngModel)]="clientProfile.company.name"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.name">
+          <div class="error-message" *ngIf="companyProfileForm.get('nameControl').hasError(validation.type) && (companyProfileForm.get('nameControl').dirty || companyProfileForm.get('nameControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating" class="requiredField">Billing Email Address</ion-label>
+        <ion-input formControlName="billingEmailControl" type="email" [(ngModel)]="clientProfile.company.emailForInvoices"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.billingEmail">
+          <div class="error-message" *ngIf="companyProfileForm.get('billingEmailControl').hasError(validation.type) && (companyProfileForm.get('billingEmailControl').dirty || companyProfileForm.get('billingEmailControl').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Notification Email Address 1</ion-label>
+        <ion-input formControlName="notificationEmail1Control" type="email" [(ngModel)]="clientProfile.company.emailForUpdates1"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.notificationEmail1">
+          <div class="error-message" *ngIf="companyProfileForm.get('notificationEmail1Control').hasError(validation.type) && (companyProfileForm.get('notificationEmail1Control').dirty || companyProfileForm.get('notificationEmail1Control').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Notification Email Address 2</ion-label>
+        <ion-input formControlName="notificationEmail2Control" type="email" [(ngModel)]="clientProfile.company.emailForUpdates2"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.notificationEmail2">
+          <div class="error-message" *ngIf="companyProfileForm.get('notificationEmail2Control').hasError(validation.type) && (companyProfileForm.get('notificationEmail2Control').dirty || companyProfileForm.get('notificationEmail2Control').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Notification Email Address 3</ion-label>
+        <ion-input formControlName="notificationEmail3Control" type="email" [(ngModel)]="clientProfile.company.emailForUpdates3"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validationMessages.notificationEmail3">
+          <div class="error-message" *ngIf="companyProfileForm.get('notificationEmail3Control').hasError(validation.type) && (companyProfileForm.get('notificationEmail3Control').dirty || companyProfileForm.get('notificationEmail3Control').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-button [disabled]="buttonDisabled" color="primary" shape="round" (click)="updateAccount()">Update
+          Account
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

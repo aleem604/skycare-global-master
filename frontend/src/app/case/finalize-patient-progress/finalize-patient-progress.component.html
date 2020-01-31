@@ -1,0 +1,66 @@
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeProgress()" class="closeFAB">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-slides [options]="slideOptions" #slidesController>
+    <ion-slide style="flex-direction: column;">
+      <span class="title">Signature of medical provider accepting transfer of care and any reports, records, or films in our custody</span>
+      <div class="signaturePad"> 
+        <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete('medicalProvider')" #medicalProviderSignaturePad></signature-pad>
+        <ion-button color="danger" class="clearSignatureButton" size="small" shape="round" (click)="resetSignature('medicalProvider')">Clear Signature</ion-button>
+      </div>
+      <div class="signerName">
+        <span class="label">Name</span>
+        <ion-input type="text" [(ngModel)]="pp.medicalProviderName" class="name"></ion-input>
+      </div>
+      <div class="navigationButtons">
+        <ion-button [disabled]="finishMedicalProviderSignatureButtonDisabled" color="primary" class="rightButton"
+                    shape="round" size="small" expand="block" (click)="next()">NEXT</ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide style="flex-direction: column;">
+      <span class="title">Primary Escort Signature</span>
+      <div class="signaturePad"> 
+        <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete('primaryEscort')" #primaryEscortSignaturePad></signature-pad>
+        <ion-button color="danger" class="clearSignatureButton" size="small" shape="round" (click)="resetSignature('primaryEscort')">Clear Signature</ion-button>
+      </div>
+      <div class="signerName">
+        <span class="label">Name</span>
+        <ion-select [(ngModel)]="pp.escort1ID" placeholder="Select Name" class="name" interface="popover"> 
+          <ion-select-option *ngFor="let escort of currentCase.escorts" [value]="escort.escortID">{{ escort.name }}</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="navigationButtons">
+          <ion-button color="danger" class="leftButton"
+                      shape="round" (click)="prev()">MEDICAL PROVIDER SIGNATURE</ion-button>
+        <ion-button [disabled]="finishPrimaryEscortSignatureButtonDisabled" color="primary" class="rightButton"
+                    shape="round" (click)="next()">NEXT</ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide style="flex-direction: column;">
+      <span class="title">(OPTIONAL) Secondary Escort Signature</span>
+      <div class="signaturePad"> 
+        <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete('secondaryEscort')" #secondaryEscortSignaturePad></signature-pad>
+        <ion-button color="danger" class="clearSignatureButton" size="small" shape="round" (click)="resetSignature('secondaryEscort')">Clear Signature</ion-button>
+      </div>
+      <div class="signerName">
+        <span class="label">Name</span>
+        <ion-select [(ngModel)]="pp.escort2ID" placeholder="Select Name" class="name" interface="popover">
+          <ion-select-option *ngFor="let escort of currentCase.escorts" [value]="escort.escortID">{{ escort.name }}</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="navigationButtons">
+          <ion-button color="danger" class="leftButton"
+                      shape="round" (click)="prev()">PRIMARY ESCORT SIGNATURE</ion-button>
+        <ion-button color="primary" class="rightButton"
+                    shape="round" (click)="finalizeProgress()">FINALIZE & SUBMIT</ion-button>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

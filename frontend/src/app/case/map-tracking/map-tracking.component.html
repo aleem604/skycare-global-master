@@ -1,0 +1,16 @@
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="close()" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div>
+    <agm-map [latitude]="lat" [longitude]="lng" style="height: calc(100vh);">
+        <agm-marker *ngIf="lastGroundLocation.lat !== 0" [latitude]="lastGroundLocation.lat" [longitude]="lastGroundLocation.lng" [iconUrl]="startMarkerIcon"></agm-marker>
+        <agm-marker *ngIf="lastFlightLocation.lat !== 0" [latitude]="lastFlightLocation.lat" [longitude]="lastFlightLocation.lng" [iconUrl]="flightMarkerIcon"></agm-marker>
+    </agm-map>
+  </div>
+
+</ion-content>

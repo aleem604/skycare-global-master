@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="pageTitle">All Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pageHolder" fullscreen>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="download"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button class="text-fab" (click)="showNotEnabled()">Download Docs</ion-fab-button>
+      <ion-fab-button class="text-fab" (click)="deleteUsers()">Delete Users</ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <div class="blockHeader">Escorts</div>
+     
+  <ion-grid class="pageHolder">
+      <ion-row class="listHeader" nowrap>
+          <ion-col size-xs="1" class="listColumnHeader"><ion-checkbox (ionChange)="toggleAllEscorts($event)"></ion-checkbox></ion-col>
+          <ion-col size-xs="4" 
+                   size-sm="4"
+                   size-md="3" 
+                   size-lg="3" 
+                   size-xl="3" class="listColumnHeader">Name<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'escort', [ 'user', 'name' ])">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'escort', [ 'user', 'name' ])">&#9660;</span></span></ion-col>
+          <ion-col size-xs="4" 
+                   size-sm="4"
+                   size-md="4" 
+                   size-lg="3" 
+                   size-xl="3" class="listColumnHeader">Email<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'escort', [ 'user', 'email' ])">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'escort', [ 'user', 'email' ])">&#9660;</span></span></ion-col>
+          <ion-col size-xs="3" 
+                   size-sm="3"
+                   size-md="2" 
+                   size-lg="2" 
+                   size-xl="2" class="listColumnHeader">Phone<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'escort', [ 'user', 'phoneNumber' ])">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'escort', [ 'user', 'phoneNumber' ])">&#9660;</span></span></ion-col>
+          <ion-col size-md="2"
+                   size-lg="2"
+                   size-xl="2" class="hidden-xs hidden-sm listColumnHeader">License<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'escort', [ 'licenseType' ])">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'escort', [ 'licenseType' ])">&#9660;</span></span></ion-col>
+          <ion-col size-lg="1" 
+                   size-xl="1" class="hidden-xs hidden-sm hidden-md listColumnHeader">Home<span class="sorter">
+                      <span class="top" (click)="sortAscending($event, 'escort', [ 'homeAirportCity' ])">&#9650;</span>
+                      <span class="bot" (click)="sortDescending($event, 'escort', [ 'homeAirportCity' ])">&#9660;</span></span></ion-col>              
+      </ion-row>
+      <ion-row *ngIf="escorts.length == 0">
+          <ion-col size="12">No Escorts</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let escort of escorts" class="listRow" nowrap>     
+          <ion-col size-xs="1" class="listCell"><ion-checkbox [value]="escort.checked" [checked]="escort.checked" [(ngModel)]="escort.checked"></ion-checkbox></ion-col>           
+          <ion-col size-xs="4" 
+                   size-sm="4"
+                   size-md="3" 
+                   size-lg="3" 
+                   size-xl="3" class="listCell">{{ escort.profile.user.name }}</ion-col>
+          <ion-col size-xs="4" 
+                   size-sm="4"
+                   size-md="4" 
+                   size-lg="3" 
+                   size-xl="3" class="listCell">{{ escort.profile.user.email }}</ion-col>
+          <ion-col size-xs="3" 
+                   size-sm="3"
+                   size-md="2" 
+                   size-lg="2" 
+                   size-xl="2" class="listCell">{{  escort.profile.user.phoneNumber }}</ion-col>
+          <ion-col size-md="2"
+                   size-lg="2"
+                   size-xl="2" class="hidden-xs hidden-sm listCell">{{ escort.profile.licenseType }}</ion-col>
+          <ion-col size-lg="1" 
+                   size-xl="1" class="hidden-xs hidden-sm hidden-md listCell">{{ escort.profile.homeAirportCity }}</ion-col> 
+      </ion-row>
+  </ion-grid>
+
+  <div class="blockHeader">Clients</div>
+     
+  <ion-grid class="pageHolder">
+      <ion-row class="listHeader" nowrap>
+          <ion-col size-xs="1"             class="listColumnHeader"><ion-checkbox (ionChange)="toggleAllClients($event)"></ion-checkbox></ion-col>
+          <ion-col size-xs="2" size-md="2" class="listColumnHeader">Company<span class="sorter">
+              <span class="top" (click)="sortAscending($event, 'client', [ 'company', 'name' ])">&#9650;</span>
+              <span class="bot" (click)="sortDescending($event, 'client',  [ 'company', 'name' ])">&#9660;</span></span></ion-col>
+          <ion-col size-xs="4" size-md="3" class="listColumnHeader">Name<span class="sorter">
+              <span class="top" (click)="sortAscending($event, 'client', [ 'user', 'name' ])">&#9650;</span>
+              <span class="bot" (click)="sortDescending($event, 'client', [ 'user', 'name' ])">&#9660;</span></span></ion-col>
+          <ion-col size-xs="5" size-md="4" class="listColumnHeader">Email<span class="sorter">
+              <span class="top" (click)="sortAscending($event, 'client', [ 'user', 'email' ])">&#9650;</span>
+              <span class="bot" (click)="sortDescending($event, 'client', [ 'user', 'email' ])">&#9660;</span></span></ion-col>
+          <ion-col             size-md="2" class="hidden-xs hidden-sm listColumnHeader">Phone<span class="sorter">
+              <span class="top" (click)="sortAscending($event, 'client', [ 'user', 'phoneNumber' ])">&#9650;</span>
+              <span class="bot" (click)="sortDescending($event, 'client', [ 'user', 'phoneNumber' ])">&#9660;</span></span></ion-col>             
+      </ion-row>
+      <ion-row *ngIf="clients.length == 0">
+          <ion-col size="12">No Clients</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let client of clients" class="listRow" nowrap>                
+          <ion-col size-xs="1"             class="listCell"><ion-checkbox [value]="client.checked" [checked]="client.checked" [(ngModel)]="client.checked"></ion-checkbox></ion-col>    
+          <ion-col size-xs="2" size-md="2" class="listCell" (click)="viewClient(client.profile.userID)">{{ client.profile.company.name }}</ion-col> 
+          <ion-col size-xs="4" size-md="3" class="listCell" (click)="viewClient(client.profile.userID)">{{ client.profile.user.name }}</ion-col>
+          <ion-col size-xs="5" size-md="4" class="listCell" (click)="viewClient(client.profile.userID)">{{ client.profile.user.email }}</ion-col>  
+          <ion-col             size-md="2" class="hidden-xs hidden-sm listCell" (click)="viewClient(client.profile.userID)">{{ client.profile.user.phoneNumber }}</ion-col>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>

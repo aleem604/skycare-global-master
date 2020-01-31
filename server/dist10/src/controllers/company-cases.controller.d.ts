@@ -1,0 +1,33 @@
+import { Filter } from '@loopback/repository';
+import { UserProfile } from '@loopback/authentication';
+import { Configuration } from '@cloudant/cloudant';
+import { CompanyCase, ReadOnlyUser } from '../models';
+import { CompanyCaseRepository, ReadOnlyUserRepository, CompanyRepository, CasePatientAssessmentRepository, CasePatientProgressRepository, CaseDocumentRepository, CaseEscortReceiptRepository, CaseMessageRepository } from '../repositories';
+export declare class CompanyCasesController {
+    private user;
+    private dsConfig;
+    companyCaseRepository: CompanyCaseRepository;
+    companyRepository: CompanyRepository;
+    readOnlyUserRepository: ReadOnlyUserRepository;
+    assessmentRepository: CasePatientAssessmentRepository;
+    patientProgressRepository: CasePatientProgressRepository;
+    documentRepository: CaseDocumentRepository;
+    escortReceiptsRepository: CaseEscortReceiptRepository;
+    messageRepository: CaseMessageRepository;
+    constructor(user: UserProfile, dsConfig: Configuration, companyCaseRepository: CompanyCaseRepository, companyRepository: CompanyRepository, readOnlyUserRepository: ReadOnlyUserRepository, assessmentRepository: CasePatientAssessmentRepository, patientProgressRepository: CasePatientProgressRepository, documentRepository: CaseDocumentRepository, escortReceiptsRepository: CaseEscortReceiptRepository, messageRepository: CaseMessageRepository);
+    find(credentials: string, companyID: string, filter?: Filter): Promise<CompanyCase[]>;
+    create(companyID: string, companyCase: CompanyCase): Promise<CompanyCase>;
+    findById(companyID: string, caseID: string): Promise<CompanyCase>;
+    findByExternalAccessId(externalAccessID: string): Promise<CompanyCase>;
+    updateById(companyID: string, caseID: string, modifiedCase: CompanyCase, sendEmail?: boolean, emailComments?: string): Promise<void>;
+    findUnpaidEscorts(): Promise<CompanyCase[]>;
+    markCaseEscortPaid(caseID: string, escortID: string): Promise<boolean>;
+    findUnpaidCases(): Promise<CompanyCase[]>;
+    markCasePaid(caseID: string): Promise<boolean>;
+    findArchivedCases(): Promise<CompanyCase[]>;
+    ensureCaseMatchesCompanyID(companyCase: CompanyCase, companyID: string): void;
+    sendNewCaseAssignmentEmail(newCase: CompanyCase, emailAddresses: string[]): void;
+    sendExternalAccessEmail(readOnlyUser: ReadOnlyUser, caseNumber: string): void;
+    sendStatusChangeNotificationEmail(modifiedCase: CompanyCase, emailAddresses: string[], emailComments?: string): void;
+    archiveCaseIfComplete(companyCase: CompanyCase): Promise<void>;
+}

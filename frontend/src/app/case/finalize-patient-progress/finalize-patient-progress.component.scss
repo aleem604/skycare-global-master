@@ -1,0 +1,57 @@
+
+
+.closeFAB { margin-top: 40px; }
+
+
+.title {
+    width: 100%;
+    background-color: #CCCCCC;
+    text-align: left;
+    padding-left: 15px;
+}
+.signaturePad {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 99%;
+    border: solid 1px #333333;
+    padding-bottom: 10px;
+}
+.signaturePad .clearSignatureButton {
+    float: left;
+}
+
+
+.signerName { width: 100%; margin-top: 10px; }
+.signerName .label { float: left; margin-left: 5px; margin-top:8px; }
+.signerName .name {
+    float: right;
+    border: solid 1px black;
+    max-width: calc(100% - 70px);
+    margin-right: 5px;
+    text-align: left;
+}
+
+
+
+
+
+
+.navigationButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    width: 100%;
+    height: 35px;
+}
+.rightButton {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
+}
+
+.leftButton {
+    position: absolute;
+    left: 0px;
+    margin-left: 10px;
+}

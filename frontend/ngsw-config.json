@@ -1,0 +1,35 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "appMain",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.js",
+          "/svg/**",
+          "/assets/icon/**",
+          "/assets/icons/**",
+          "/assets/images/**"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://unpkg.com/**"
+        ]
+      }
+    }, {
+      "name": "appSupplement",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/forms/**"
+        ]
+      }
+    }
+  ]
+}

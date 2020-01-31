@@ -1,0 +1,590 @@
+<ion-content>
+  <div id="scrollTopAnchor" #scrollTopAnchor></div>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button class="preflightFAB" (click)="saveAssessmentProgress()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-slides [options]="slideOptions" #slidesController>
+    <ion-slide>
+      <form [formGroup]="airwayForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Airway</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="patientO2SpecifiedControl" [(ngModel)]="pa.airwayUsingO2" [checked]="pa.airwayUsingO2"></ion-checkbox></ion-col>
+                <ion-col size-xs="7" size-md="4"><ion-label>Patient O2 LPM</ion-label></ion-col>
+                <ion-col size="4"><ion-input type="number" formControlName="patientO2LPMControl" [(ngModel)]="pa.airwayPatientO2LPM" placeholder="LPM Value" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-md="3" class="hidden-xs hidden-sm">&nbsp;</ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="usingBVMControl" [(ngModel)]="pa.airwayUsingBVM" [checked]="pa.airwayUsingBVM"></ion-checkbox></ion-col>
+                <ion-col size="11"><ion-label>Using BVM</ion-label></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>            
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="usingETTControl" [(ngModel)]="pa.airwayUsingETT" [checked]="pa.airwayUsingETT"></ion-checkbox></ion-col>
+                <ion-col size-xs="4" size-md="3"><ion-label>Using ETT</ion-label></ion-col>
+                <ion-col size-xs="2"><ion-input type="number" formControlName="usingETTSizeControl" [(ngModel)]="pa.airwayUsingETTSize" placeholder="Size" class="right-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-xs="2"><ion-label style="text-align: center;">@</ion-label></ion-col>
+                <ion-col size-xs="2"><ion-input type="text" formControlName="usingETTRateControl" [(ngModel)]="pa.airwayUsingETTRate" placeholder="Rate" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-md="1" class="hidden-xs hidden-sm">&nbsp;</ion-col>
+              </ion-row>
+            </ion-grid>            
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="usingOPANPAControl" [(ngModel)]="pa.airwayUsingOPANPA" [checked]="pa.airwayUsingOPANPA"></ion-checkbox></ion-col>
+                <ion-col size="11"><ion-label>Using OPA / NPA</ion-label></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="usingTrachControl" [(ngModel)]="pa.airwayUsingTrach" [checked]="pa.airwayUsingTrach"></ion-checkbox></ion-col>
+                <ion-col size="3"><ion-label>Trach</ion-label></ion-col>
+                <ion-col size="2"><ion-label style="text-align: right;">Size</ion-label></ion-col>                
+                <ion-col size-xs="4" size-md="3"><ion-input type="number" formControlName="usingTrachSizeControl" [(ngModel)]="pa.airwayUsingTrachSize" placeholder="Size Value" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-xs="2" size-md="3">&nbsp;</ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <ion-input type="text" formControlName="notesControl" [(ngModel)]="pa.airwayNotes"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-button [disabled]="finishAirwayButtonDisabled" color="primary" class="rightButton"
+                        shape="round" (click)="next()">GO TO RESPIRATORY / CHEST</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide> 
+    <ion-slide>
+      <form [formGroup]="respiratoryForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Respiratory / Chest</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-label>Breathing:</ion-label>
+            <ion-select formControlName="breathingControl" [(ngModel)]="pa.respBreathing" multiple="true" placeholder="Select Multiple" style="max-width:230px;">
+              <ion-select-option value="Unlabored">Unlabored</ion-select-option>
+              <ion-select-option value="Labored">Labored</ion-select-option>
+              <ion-select-option value="Rapid">Rapid</ion-select-option>
+              <ion-select-option value="Slow">Slow</ion-select-option>
+              <ion-select-option value="Shallow">Shallow</ion-select-option>
+              <ion-select-option value="Deep">Deep</ion-select-option>
+              <ion-select-option value="Retractions">Retractions</ion-select-option>
+              <ion-select-option value="Grunting">Grunting</ion-select-option>
+              <ion-select-option value="Ronchi">Ronchi</ion-select-option>
+              <ion-select-option value="Crackles">Crackles</ion-select-option>
+              <ion-select-option value="Stridor">Stridor</ion-select-option>
+              <ion-select-option value="Flaring">Flaring</ion-select-option>
+              <ion-select-option value="Wheezes">Wheezes</ion-select-option>
+              <ion-select-option value="Rales">Rales</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="tracheaMidlineControl" [(ngModel)]="pa.respTracheaMidline" [checked]="pa.respTracheaMidline"></ion-checkbox></ion-col>
+                <ion-col size="11"><ion-label>Trachea Midline</ion-label></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>        
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="coughControl" [(ngModel)]="pa.respCough" [checked]="pa.respCough"></ion-checkbox></ion-col>
+                <ion-col size="3"><ion-label>Cough</ion-label></ion-col>
+                <ion-col size="8"><ion-select formControlName="coughProductiveControl" [(ngModel)]="pa.respCoughProductive" placeholder="Select One" class="left-align-bordered-input" interface="popover"><ion-select-option value="Productive">Productive</ion-select-option><ion-select-option value="NonProductive">Non-Productive</ion-select-option></ion-select></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="7"><ion-label>Chest Wall Expansion</ion-label></ion-col>
+                <ion-col size="5"><ion-select formControlName="chestWallExpansionControl" [(ngModel)]="pa.respChestWallExpansion" placeholder="Select One" class="left-align-bordered-input" interface="popover"><ion-select-option value="Symmetrical">Symmetric</ion-select-option><ion-select-option value="Asymmetric">Asymmetric</ion-select-option></ion-select></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4" style="padding-left:0px;padding-right:0px;"><ion-label style="margin-right:0px;">Breath Sound</ion-label></ion-col>
+                <ion-col size="4"><ion-select formControlName="breathSoundsControl" [(ngModel)]="pa.respBreathSounds" placeholder="Select One" class="left-align-bordered-input" interface="popover"><ion-select-option value="CTA">CTA</ion-select-option><ion-select-option value="Diminished">Diminished</ion-select-option></ion-select></ion-col>
+                <ion-col size="1" style="text-align:right"><ion-label style="margin-right:0px;">R</ion-label></ion-col>
+                <ion-col size="1" style="text-align:left"><ion-checkbox formControlName="breathDiminishedRightControl" [(ngModel)]="pa.respBreathDiminishedRight" [checked]="pa.respBreathDiminishedRight"></ion-checkbox></ion-col>
+                <ion-col size="1" style="text-align:right"><ion-label style="margin-right:0px;">L</ion-label></ion-col>
+                <ion-col size="1" style="text-align:left"><ion-checkbox formControlName="breathDiminishedLeftControl" [(ngModel)]="pa.respBreathDiminishedLeft" [checked]="pa.respBreathDiminishedLeft"></ion-checkbox></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item-divider><ion-label>Equipment Used</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="6"><ion-label>Monitors</ion-label></ion-col>
+                <ion-col size="6">
+                  <ion-select formControlName="respMonitorsControl" [(ngModel)]="pa.respMonitors" placeholder="Select One" class="left-align-bordered-input" style="max-width:230px;" interface="popover">
+                    <ion-select-option value="PulseOx">Pulse Ox</ion-select-option>
+                    <ion-select-option value="ETCO2">ETCO2</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="6"><ion-label>Suppl. O2 Device</ion-label></ion-col>
+                <ion-col size="6">
+                  <ion-select formControlName="supplimentaryO2DeviceControl" [(ngModel)]="pa.respSupplimentaryO2Device" placeholder="Select One" class="left-align-bordered-input" style="max-width:230px;" interface="popover">
+                    <ion-select-option value="NasalCannula">Nasal Cannula</ion-select-option>
+                    <ion-select-option value="NonrebreatherMask">Nonrebreather Mask</ion-select-option>
+                    <ion-select-option value="VenturiMask">Venturi Mask</ion-select-option>
+                    <ion-select-option value="Ventilator">Ventilator</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="2"><ion-label style="text-align: right;">LPM</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="equipLPMControl" [(ngModel)]="pa.respEquipLPM" placeholder="LPM Value" class="left-align-bordered-input" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input></ion-col>
+                <ion-col size="4"><ion-label style="text-align: right;">SpO2%</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="equipPercentControl" [(ngModel)]="pa.respEquipPercent" placeholder="O2% Value" class="left-align-bordered-input" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>          
+          <ion-item>
+              <ion-button color="danger" class="leftButton"
+                          shape="round" (click)="prev()">BACK TO AIRWAY</ion-button>
+              <ion-button [disabled]="finishRespChestButtonDisabled" color="primary" class="rightButton"
+                          shape="round" (click)="next()">GO TO CARDIAC</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form [formGroup]="cardiacForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Cardiac</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="2"><ion-label>Rate:</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="cardiacRateControl" [(ngModel)]="pa.cardiacRate" placeholder="BPM" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size="3"><ion-label>Rhythm:</ion-label></ion-col>
+                <ion-col size="5"><ion-select formControlName="cardiacRhythmControl" [(ngModel)]="pa.cardiacRhythm" placeholder="Select One" class="left-align-bordered-input" interface="popover"><ion-select-option value="Regular">Regular</ion-select-option><ion-select-option value="Irregular">Irregular</ion-select-option></ion-select></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-label>Heart Sounds:</ion-label>
+            <ion-input type="text" formControlName="cardiacSoundsControl" [(ngModel)]="pa.cardiacSounds" placeholder="Description"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Jugular Vein:</ion-label>
+            <ion-select formControlName="cardiacJVDControl" [(ngModel)]="pa.cardiacJvd" placeholder="Select One" interface="popover"><ion-select-option value="Normal">Normal</ion-select-option><ion-select-option value="Flat">Flat</ion-select-option><ion-select-option value="Distended">Distended</ion-select-option></ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Equipment Used:</ion-label>
+            <ion-select formControlName="cardiacEquipmentControl" [(ngModel)]="pa.cardiacEquipment" multiple="true" placeholder="Select Multi" style="max-width:230px;">
+              <ion-select-option value="CardiacMonitor">Cardiac Monitor</ion-select-option>
+              <ion-select-option value="NIBP">NIBP</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size-xs="6" size-md="4"><ion-label>Peripheral Edema:</ion-label></ion-col>
+                <ion-col size-xs="4" size-md="6"><ion-input type="text" formControlName="peripheralEdemaControl" [(ngModel)]="pa.cardiacPeripheralEdemaLocation" placeholder="Location" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-xs="2"><ion-input type="number" formControlName="peripheralEdemaScoreControl" [(ngModel)]="pa.cardiacPeripheralEdemaScore" min="1" max="4" placeholder="1-4" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="cardiacExternalPacingControl" [(ngModel)]="pa.cardiacExternalPacing" [checked]="pa.cardiacExternalPacing"></ion-checkbox></ion-col>
+                <ion-col size-xs="6" size-sm="5" size-md="4"><ion-label>External Pacing:</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="cardiacExternalPacingMAControl" [(ngModel)]="pa.cardiacExternalPacingMA" placeholder="mA" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-sm="1" class="hidden-xs" style="text-align:left;"><ion-label>mA</ion-label></ion-col>
+                <ion-col size-xs="3" size-sm="2"><ion-input type="number" formControlName="cardiacExternalPacingRateControl" [(ngModel)]="pa.cardiacExternalPacingRate" placeholder="Rate" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size-sm="1" class="hidden-xs" style="text-align:left;"><ion-label>Rate</ion-label></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">12 Lead ECG Findings</ion-label>
+            <ion-input type="text" formControlName="cardiacEcgFindingsControl" [(ngModel)]="pa.cardiacEcgFindings"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <ion-input type="text" formControlName="cardiacNotesControl" [(ngModel)]="pa.cardiacNotes" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-button color="danger" class="leftButton"
+                        shape="round" (click)="prev()">BACK TO RESPIRATORY / CHEST</ion-button>
+            <ion-button [disabled]="finishCardiacButtonDisabled" color="primary" class="rightButton"
+                        shape="round" (click)="next()">GO TO NEURO</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide> 
+    <ion-slide>
+      <form [formGroup]="neuroForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Neuro</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-label>Eyes:</ion-label>
+            <ion-select formControlName="neuroEyesControl" [(ngModel)]="pa.neuroEyes" placeholder="Select One" (ionChange)="computeGCSScore()" class="wide-dropdown" interface="popover">
+              <ion-select-option value="4">Opens Spontaneously</ion-select-option>
+              <ion-select-option value="3">Opens to voice</ion-select-option>
+              <ion-select-option value="2">Opens to pain</ion-select-option>
+              <ion-select-option value="1">No response</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Verbal:</ion-label>
+            <ion-select formControlName="neuroVerbalControl" [(ngModel)]="pa.neuroVerbal" placeholder="Select One" (ionChange)="computeGCSScore()" class="wide-dropdown" interface="popover">
+              <ion-select-option value="5">Oriented X 4</ion-select-option>
+              <ion-select-option value="4">Confused</ion-select-option>
+              <ion-select-option value="3">Inappropriate</ion-select-option>
+              <ion-select-option value="2">Incomprehensible</ion-select-option>
+              <ion-select-option value="1">None spoken</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Motor:</ion-label>
+            <ion-select formControlName="neuroMotorControl" [(ngModel)]="pa.neuroMotor" placeholder="Select One" (ionChange)="computeGCSScore()" class="wide-dropdown" interface="popover">
+              <ion-select-option value="6">Obeys commands</ion-select-option>
+              <ion-select-option value="5">Localizes pain stimulus</ion-select-option>
+              <ion-select-option value="4">Withdraws from pain</ion-select-option>
+              <ion-select-option value="3">Flexion</ion-select-option>
+              <ion-select-option value="2">Extension</ion-select-option>
+              <ion-select-option value="1">No movement</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>GCS Score:</ion-label>
+            <ion-label style="text-align: right">{{ pa.neuroGcsScore }}</ion-label>
+          </ion-item>  
+          <ion-item-divider><ion-label>Pupils</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="neuroPupilsPERRLAControl" [(ngModel)]="pa.neuroPupilsPERRLA" [checked]="pa.neuroPupilsPERRLA"></ion-checkbox></ion-col>
+                <ion-col size="11"><ion-label>PERRLA</ion-label></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4"><ion-label>Size:</ion-label></ion-col>
+                <ion-col size="1" style="text-align: right;"><ion-label>L</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="neuroSizeLeftControl" [(ngModel)]="pa.neuroSizeLeft" placeholder="Value" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size="1" style="text-align: right;"><ion-label>R</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="neuroSizeRightControl" [(ngModel)]="pa.neuroSizeRight" placeholder="Value" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4"><ion-label>Reaction:</ion-label></ion-col>
+                <ion-col size="1" style="text-align: right;"><ion-label>L</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="neuroReactionLeftControl" [(ngModel)]="pa.neuroReactionLeft" placeholder="Value" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size="1" style="text-align: right;"><ion-label>R</ion-label></ion-col>
+                <ion-col size="3"><ion-input type="number" formControlName="neuroReactionRightControl" [(ngModel)]="pa.neuroReactionRight" placeholder="Value" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <ion-input type="text" formControlName="neuroNotesControl" [(ngModel)]="pa.neuroNotes" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input>
+          </ion-item>  
+          <ion-item>
+            <ion-button color="danger" class="leftButton"
+                        shape="round" (click)="prev()">BACK TO CARDIAC</ion-button>
+            <ion-button [disabled]="finishNeuroButtonDisabled" color="primary" class="rightButton"
+                        shape="round" (click)="next()">GO TO ABDOMEN / GI</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide> 
+    <ion-slide>
+      <form [formGroup]="abdomenForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Abdomen / GI</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-label>Condition:</ion-label>
+            <ion-select formControlName="abdomenConditionControl" [(ngModel)]="pa.abdomenCondition" multiple="true" placeholder="Select Multi" style="max-width:230px;">
+              <ion-select-option value="Soft">Soft</ion-select-option>
+              <ion-select-option value="Flat">Flat</ion-select-option>
+              <ion-select-option value="Obese">Obese</ion-select-option>
+              <ion-select-option value="Distended">Distended</ion-select-option>
+              <ion-select-option value="Rigid">Rigid</ion-select-option>
+              <ion-select-option value="Guarding">Guarding</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Tenderness:</ion-label>
+            <ion-select formControlName="abdomenTendernessControl" [(ngModel)]="pa.abdomenTenderness" multiple="true" placeholder="Select Multi" style="max-width:230px;">
+              <ion-select-option value="None">None</ion-select-option>
+              <ion-select-option value="Diffuse">Diffuse</ion-select-option>
+              <ion-select-option value="Epigastric">Epigastric</ion-select-option>
+              <ion-select-option value="RUQ">Right-upper quadrant</ion-select-option>
+              <ion-select-option value="LUQ">Left-upper quadrant</ion-select-option>
+              <ion-select-option value="RLQ">Right-lower quadrant</ion-select-option>
+              <ion-select-option value="LLQ">Left-lower quadrant</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Bowel Sounds:</ion-label>
+            <ion-select formControlName="abdomenBowelSoundsControl" [(ngModel)]="pa.abdomenBowelSounds" placeholder="Select One" interface="popover">
+              <ion-select-option value="Present">Present</ion-select-option>
+              <ion-select-option value="Diminished">Diminished</ion-select-option>
+              <ion-select-option value="Absent">Absent</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4"><ion-label>Feed Tube</ion-label></ion-col>
+                <ion-col size="5"><ion-select formControlName="abdomenFeedTubeControl" [(ngModel)]="pa.abdomenFeedTube" placeholder="Select One" class="left-align-bordered-input" interface="popover"><ion-select-option value="NGTube">NG Tube</ion-select-option><ion-select-option value="GTube">GTube</ion-select-option></ion-select></ion-col>
+                <ion-col size="3"><ion-input formControlName="abdomenFeedTubeSizeControl" [(ngModel)]="pa.abdomenFeedTubeSize" placeholder="Size" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item> 
+          <ion-item>
+            <ion-label>Feed Tube State:</ion-label>
+            <ion-select formControlName="abdomenFeedTubeStateControl" [(ngModel)]="pa.abdomenFeedTubeState" placeholder="Select One" interface="popover">
+              <ion-select-option value="Clamped">Clamped</ion-select-option>
+              <ion-select-option value="Suction">Suction</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Notes:</ion-label>
+            <ion-input formControlName="abdomenNotesControl" [(ngModel)]="pa.abdomenNotes"></ion-input> 
+          </ion-item>
+          <ion-item-divider><ion-label>Pelvis / GU</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-checkbox formControlName="pelvisStableControl" [(ngModel)]="pa.pelvisStable" [checked]="pa.pelvisStable" slot="start"></ion-checkbox>
+            <ion-label>Stable</ion-label>
+          </ion-item>        
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="1" class="checkbox-col"><ion-checkbox formControlName="pelvisFoleyControl" [(ngModel)]="pa.pelvisFoley" [checked]="pa.pelvisFoley"></ion-checkbox></ion-col>
+                <ion-col size="3"><ion-label>Foley</ion-label></ion-col>
+                <ion-col size="8"><ion-input type="number" formControlName="pelvisFoleySizeControl" [(ngModel)]="pa.pelvisFoleySize" placeholder="Size" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>
+          <ion-item>
+            <ion-label>Appearance of Urine:</ion-label>
+            <ion-input formControlName="pelvisAppearanceOfUrineControl" [(ngModel)]="pa.pelvisAppearanceOfUrine" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input> 
+          </ion-item>
+          <ion-item>
+            <ion-label>Notes:</ion-label>
+            <ion-input formControlName="pelvisNotesControl" [(ngModel)]="pa.pelvisNotes" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input> 
+          </ion-item>        
+          <ion-item>
+              <ion-button color="danger" class="leftButton"
+                          shape="round" (click)="prev()">BACK TO NEURO</ion-button>
+              <ion-button [disabled]="finishAbdomenButtonDisabled" color="primary" class="rightButton"
+                          shape="round" (click)="next()">GO TO TRAUMA / EXT</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form [formGroup]="traumaExtForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Trauma</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-checkbox formControlName="neuroHEENTTraumaControl" [(ngModel)]="pa.neuroHeentTrauma" [checked]="pa.neuroHeentTrauma"></ion-checkbox>
+            <ion-label>HEENT Signs of Trauma</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="chestTraumaControl" [(ngModel)]="pa.respChestTrauma" [checked]="pa.respChestTrauma"></ion-checkbox>
+            <ion-label>Chest Signs of Trauma</ion-label>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Back/Buttocks Trauma:</ion-label>
+            <ion-select formControlName="backTraumaControl" [(ngModel)]="pa.backTrauma" multiple="true" placeholder="Select Multi" style="max-width:160px;">
+              <ion-select-option value="FSIBackNotVisualized">FSI back not visualized</ion-select-option>
+              <ion-select-option value="SkinIntactDecub">Skin intact / Decub</ion-select-option>
+              <ion-select-option value="ObviousTrauma">Obvious Trauma (diag)</ion-select-option>
+              <ion-select-option value="LesionsLacerations">Lesions / Lacerations</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Back / Buttocks Trauma Notes</ion-label>
+            <ion-input formControlName="backNotesControl" [(ngModel)]="pa.backNotes"></ion-input> 
+          </ion-item>
+          <ion-item-divider><ion-label>Extremities</ion-label></ion-item-divider> 
+          <ion-item>
+            <ion-label>Extremities Trauma:</ion-label>
+            <ion-select formControlName="extremitiesTraumaControl" [(ngModel)]="pa.extremitiesTrauma" multiple="true" placeholder="Select Multi" style="max-width:190px;">
+              <ion-select-option value="CMSIntact">CMS intact x 4 extremities</ion-select-option>
+              <ion-select-option value="SkinIntact">Skin intact x 4 extremities</ion-select-option>
+              <ion-select-option value="TraumaNoted">Trauma Noted (diag)</ion-select-option>
+              <ion-select-option value="SplintORIFExternal">Splint ORIF / External</ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4"><ion-label>Pulses:</ion-label></ion-col>
+                <ion-col size="2" style="text-align:right;"><ion-label>RUE</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="extremitiesPulsesRUEControl" [(ngModel)]="pa.extremitiesPulsesRUE" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size="2" style="text-align:right;"><ion-label>LUE</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="extremitiesPulsesLUEControl" [(ngModel)]="pa.extremitiesPulsesLUE" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>  
+          <ion-item>
+            <ion-grid class="flex-field-grid">
+              <ion-row>
+                <ion-col size="4"><ion-label>Pulses:</ion-label></ion-col>
+                <ion-col size="2" style="text-align:right;"><ion-label>RLE</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="extremitiesPulsesRLEControl" [(ngModel)]="pa.extremitiesPulsesRLE" class="left-align-bordered-input"></ion-input></ion-col>
+                <ion-col size="2" style="text-align:right;"><ion-label>LLE</ion-label></ion-col>
+                <ion-col size="2"><ion-input type="number" formControlName="extremitiesPulsesLLEControl" [(ngModel)]="pa.extremitiesPulsesLLE" class="left-align-bordered-input"></ion-input></ion-col>
+              </ion-row>
+            </ion-grid> 
+          </ion-item>     
+          <ion-item>
+              <ion-button color="danger" class="leftButton"
+                          shape="round" (click)="prev()">BACK TO ABDOMEN / GI</ion-button>
+              <ion-button [disabled]="finishTraumaExtButtonDisabled" color="primary" class="rightButton"
+                          shape="round" (click)="next('diagram')">GO TO DIAGRAM</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form [formGroup]="diagramForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Diagrams</ion-label></ion-item-divider>
+          <image-annotator src="assets/images/body_diagram.png"
+                           [annotations]="pa.diagramAnnotations"
+                           maxWidth="350" maxHeight="371"
+                           (onSave)="saveDiagramAnnotations($event)" #annotator></image-annotator>
+          <ion-item>
+            <ion-label position="floating">Diagram Notes</ion-label>
+            <ion-input formControlName="diagramNotesControl" [(ngModel)]="pa.diagramNotes" (blur)="hideKeyboardOnPhones($event)" (focus)="showKeyboardOnPhones($event)"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-button color="danger" class="leftButton"
+                          shape="round" (click)="prev()">BACK TO TRAUMA / EXT</ion-button>
+              <ion-button [disabled]="finishDiagramButtonDisabled" color="primary" class="rightButton"
+                          shape="round" (click)="next('misc')">GO TO MISC</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form [formGroup]="miscForm">
+        <ion-list>
+          <ion-item-divider><ion-label>Miscellaneous</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-label>Speech:</ion-label>
+            <ion-select formControlName="demeanorSpeechControl" [(ngModel)]="pa.demeanorSpeech" placeholder="Select One" class="wide-dropdown" interface="popover">
+              <ion-select-option value="Normal">Normal</ion-select-option>
+              <ion-select-option value="Slurred/Garbled">Slurred / Garbled</ion-select-option>
+              <ion-select-option value="Aphasic">Aphasic</ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Behavior:</ion-label>
+            <ion-select formControlName="demeanorBehaviorControl" [(ngModel)]="pa.demeanorBehavior" placeholder="Select One" class="wide-dropdown" interface="popover">
+              <ion-select-option value="Calm,cooperative">Calm, cooperative</ion-select-option>
+              <ion-select-option value="Withdrawn,depressed">Withdrawn, depressed</ion-select-option>
+              <ion-select-option value="Anxious,confused">Anxious, confused</ion-select-option>
+              <ion-select-option value="Hostile,aggressive">Hostile, aggressive</ion-select-option>
+              <ion-select-option value="Other,see notes">Other, see notes</ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Skin:</ion-label>
+            <ion-select formControlName="demeanorSkinControl" [(ngModel)]="pa.demeanorSkin" placeholder="Select Multi" multiple="true" style="max-width:230px;">
+              <ion-select-option value="Dry">Dry</ion-select-option>
+              <ion-select-option value="Warm">Warm</ion-select-option>
+              <ion-select-option value="Pink">Pink</ion-select-option>
+              <ion-select-option value="Pale">Pale</ion-select-option>
+              <ion-select-option value="Moist">Moist</ion-select-option>
+              <ion-select-option value="Hot">Hot</ion-select-option>
+              <ion-select-option value="Mottled">Mottled</ion-select-option>
+              <ion-select-option value="Cool">Cool</ion-select-option>
+              <ion-select-option value="Jaundice">Jaundice</ion-select-option>
+              <ion-select-option value="SkinCareQHr">Skin Care q Hr</ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item-divider><ion-label>Pain</ion-label></ion-item-divider>
+          <ion-item>
+            <ion-checkbox formControlName="painDeniesControl" [(ngModel)]="pa.painDenies" [checked]="pa.painDenies" slot="start"></ion-checkbox>
+            <ion-label>Denies?</ion-label>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Pain Location:</ion-label>
+            <ion-input type="text" formControlName="painLocationControl" [(ngModel)]="pa.painLocation"></ion-input>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Sensation:</ion-label>
+            <ion-select formControlName="painSensationControl" [(ngModel)]="pa.painSensation" placeholder="Select Multi" multiple="true" style="max-width:230px;">
+              <ion-select-option value="Sharp">Sharp</ion-select-option>
+              <ion-select-option value="Dull">Dull</ion-select-option>
+              <ion-select-option value="Ache">Ache</ion-select-option>
+              <ion-select-option value="Pressure">Pressure</ion-select-option>
+              <ion-select-option value="Cramps">Cramps</ion-select-option>
+              <ion-select-option value="Constant">Constant</ion-select-option>
+              <ion-select-option value="Intermittent">Intermittent</ion-select-option>
+            </ion-select>
+          </ion-item> 
+          <ion-item>
+            <ion-label>Pain Scale 0-10:</ion-label>
+            <ion-input type="number" formControlName="painScaleControl" [(ngModel)]="pa.painScale" placeholder="Intensity" min="0" max="10"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-button color="danger" class="leftButton"
+                        shape="round" (click)="prev('diagram')">BACK TO DIAGRAM</ion-button>
+            <ion-button [disabled]="finishMiscButtonDisabled" color="primary" class="rightButton"
+                        shape="round" (click)="next('signature')">GO TO SIGNATURE</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-slide> 
+    <ion-slide style="flex-direction: column;">
+      <span class="title">Signature</span>
+      <div class="signaturePad"> 
+        <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+        <ion-button color="danger" class="clearSignatureButton" size="small" shape="round" (click)="resetSignature()">Clear Signature</ion-button>
+      </div>
+      <div class="navigationButtons">
+        <ion-button color="danger" class="leftButton"
+                    shape="round" (click)="prev('misc')">BACK TO MISC</ion-button>
+        <ion-button [disabled]="finishSignatureButtonDisabled" color="primary" class="rightButton"
+                    shape="round" (click)="finalizeAssessment()">FINALIZE & SUBMIT</ion-button>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+
+  <div id="scrollBottomAnchor" #scrollBottomAnchor></div>
+</ion-content>
+

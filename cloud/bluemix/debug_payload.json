@@ -1,0 +1,30 @@
+{
+    "total_rows": 2,
+    "offset": 0,
+    "rows": [
+        {
+            "id": "chris-escort-id",
+            "key": "chris-escort-id",
+            "value": {
+                "passportIsExpired": false,
+                "passportExpiration": "2019-01-30T00:00:00.000Z",
+                "licenseIsExpired": true,
+                "licenseExpiration": "2019-01-27T00:00:00.000Z",
+                "alsIsExpired": false,
+                "alsExpiration": "2019-01-28T00:00:00.000Z"
+            },
+            "_id": "chris-escort-id"
+        },
+        {
+            "id": "chris-escort",
+            "key": [
+                "chris-escort",
+                1
+            ],
+            "value": {
+                "email": "chris@blockspaces.io"
+            }
+        }
+    ]
+}
+
